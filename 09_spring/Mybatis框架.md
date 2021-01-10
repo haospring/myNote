@@ -162,3 +162,119 @@ namespace中的包名要和Dao/Mapper接口的包名一致
 - mybatis-config.xml
 
 ![核心配置文件可用标签](mybatis/%E6%A0%B8%E5%BF%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E5%8F%AF%E7%94%A8%E6%A0%87%E7%AD%BE.jpg)
+
+### 4.2 环境配置（environments）
+
+**尽管可以配置多个环境，但每个 SqlSessionFactory 实例只能选择一种环境**
+
+### 4.3 属性（properties）
+
+- 通过properties标签来实现引入配置文件
+
+- 这些属性可以在外部进行配置，并可以进行动态替换。
+- 你既可以在典型的 Java 属性文件中配置这些属性
+- 也可以在 properties 元素的子元素中设置
+
+方式一：
+
+~~~xml
+<properties resource="jdbc.properties"/>
+~~~
+
+方式二：
+
+~~~xml
+<properties resource="jdbc.properties">
+	<property name="username" value="root"/>
+    <property name="password" value="password"/>
+</properties>
+~~~
+
+- 可以直接引入外部文件
+- 可以在其中增加一些属性配置
+- 如果两个文件有同一个字段，优先使用外部文件的
+
+### 4.4 类型别名（typeAliases）
+
+- 类型别名可为 Java 类型设置一个缩写名字。
+- 它仅用于 XML 配置，意在降低冗余的全限定类名书写
+
+两种方式：
+
+1. 配置指定的类
+
+~~~xml
+<typeAliases>
+	<typeAliases type="com.haospring.pojo.User" alias="User"/>
+</typeAliases>
+~~~
+
+2. 也可以指定一个包名，MyBatis 会在包名下面搜索需要的 Java Bean
+
+扫描实体类的包，如果没有使用注解，它的默认别名是类的类名首字母小写
+
+如果使用注解，它的别名就是它的注解名
+
+~~~xml
+<typeAliases>
+	<package name="com.haospring.pojo"/>
+</typeAliases>
+~~~
+
+在实体类比较少的时候，使用第一种方式
+
+如果实体类十分多，建议使用第二种方式
+
+第一种可以自定义别名，第二种不行，但是可以通过注解自定义别名
+
+@Alias("user")
+
+### 4.5 设置
+
+这是 MyBatis 中极为重要的调整设置，它们会改变 MyBatis 的运行时行为
+
+![开启缓存和懒加载](mybatis/%E5%BC%80%E5%90%AF%E7%BC%93%E5%AD%98%E5%92%8C%E6%87%92%E5%8A%A0%E8%BD%BD.jpg)
+
+![驼峰映射](mybatis/%E9%A9%BC%E5%B3%B0%E6%98%A0%E5%B0%84.jpg)
+
+![日志](mybatis/%E6%97%A5%E5%BF%97.jpg)
+
+### 4.6 映射器（mappers）
+
+MapRegistry：注册绑定mapper文件
+
+方式一：使用resource绑定注册文件
+
+~~~xml
+<mappers>
+	<mapper resource="UserMapper.xml" />
+</mappers>
+~~~
+
+方式二：使用class绑定注册文件
+
+~~~xml
+<mappers>
+	<mapper class="com.haospring.mapper.UserMapper" />
+</mappers>
+~~~
+
+使用class注意事项：
+
+- 接口和它的配置文件必须同名
+- 接口和它的配置文件必须放在同一个包下
+
+方式三：使用扫描包注入
+
+~~~xml
+<mappers>
+	<package name="com.haospring.mapper"/>
+</mappers>
+~~~
+
+注意事项和使用class相同
+
+## 5. resultMap
+
+解决实体类的属性名和数据库的字段名不一致的问题
+
