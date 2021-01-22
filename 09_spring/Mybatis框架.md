@@ -2,7 +2,7 @@
 
 ## 1. 简介
 
-## 1.1 什么是Mybatis
+### 1.1 什么是Mybatis
 
 - MyBatis 是一款优秀的**持久层框架**
 - 它支持自定义 SQL、存储过程以及高级映射
@@ -125,7 +125,10 @@ namespace中的包名要和Dao/Mapper接口的包名一致
 
 - id：接口中对应的方法名
 - resultType：接口中方法的返回值
-- parameterType：方法的参数类型，多个参数时可以用map作为属性值，并传递参数为Map的对象
+- parameterType：
+  - 方法的参数类型，多个参数时可以用map作为属性值，并传递参数为Map的对象
+  - 如果参数只有一个，且是基本数据类型或者String类型，可以不加该属性
+  - 多个参数可以在方法参数中加上@Param注解
 
 ~~~xml
 <mapper namespace="com.haospring.mapper.UserMapper">
@@ -277,4 +280,114 @@ MapRegistry：注册绑定mapper文件
 ## 5. resultMap
 
 解决实体类的属性名和数据库的字段名不一致的问题
+
+结果集映射
+
+~~~xml
+id	name		pwd
+id	username	password
+~~~
+
+~~~xml
+<resultMap id="testUserMap" type="testUser">
+    <!--<result column="id" property="id"/>-->
+    <result column="name" property="username"/>
+    <result column="pwd" property="password"/>
+</resultMap>
+
+<select id="getUserById" resultMap="testUserMap">
+    select *
+    from user
+    where id = #{id};
+</select>
+~~~
+
+- 如果列名和属性名不能匹配上，可以在 SELECT 语句中设置列别名
+
+- 使用resultMap映射时可以只映射字段和属性名不一样的部分
+
+## 6. 日志
+
+### 6.1 日志工厂
+
+如果一个数据库操作，出现了异常，需要通过日志排错
+
+![日志](mybatis/%E6%97%A5%E5%BF%97.jpg)
+
+- SLF4J
+- LOG4J【掌握】
+- LOG4J2
+- JDK_LOGGING
+- COMMONS_LOGGING
+- STDOUT_LOGGING【掌握】
+- NO_LOGGING
+
+在mybatis中具体使用哪一个日志实现，在设置中设定，未设置自动查找
+
+STDOUT_LOGGING：标准日志输出
+
+### 6.2 log4j
+
+什么是log4j
+
+- log4j是apache的一个开源项目，通过log4j，可以控制日志信息输送的目的地是控制台、文件、GUI组件
+
+- 可以控制每一条日志的输出格式
+
+- 通过定义每一条日志信息的级别，能够更加细致的控制日志生成过程
+
+- 通过配置文件来灵活配置，不需要修改应用的代码
+
+导入log4j的依赖
+
+~~~xml
+<dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.12</version>
+</dependency>
+~~~
+
+## 7. 分页
+
+通过分页可以减少数据的处理量
+
+### 7.1 limit分页
+
+~~~sql
+# select * from user limit startIndex,pageSize;
+select * from user limit 0,2;
+~~~
+
+1. 接口
+
+~~~java
+List<TestUser> getUserByLimit(Map<String,Integer> map);
+~~~
+
+2. 映射文件
+
+~~~xml
+<select id="getUserByLimit" parameterType="map" resultType="user">
+    select * from user limit #{startIndex},#{pageSize};
+</select>
+~~~
+
+3. 测试类
+
+~~~java
+@Test
+public void test2() {
+    SqlSession sqlSession = MybatisUtils.getSqlSession();
+    TestUserMapper mapper = sqlSession.getMapper(TestUserMapper.class);
+    Map<String, Integer> map = new HashMap<>();
+    map.put("startIndex", 0);
+    map.put("pageSize", 2);
+    System.out.println(mapper.getUserByLimit(map));
+}
+~~~
+
+### 7.2 RowBounds分页
+
+不建议
 
