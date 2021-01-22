@@ -19,18 +19,20 @@
 选项：
 
 - -a（--all）：显示全部文件及目录，包括隐藏文件（以.开头的文件） 
-
+- -d：仅显示目录名，不显示目录下的内容列表
+- -h：人性化显示
 - -l：long长数据串列出，包含文件的属性和权限
-
 - -r：将文件以相反次序显示（原定依英文字母次序）
-
 - -t：将文件依建立时间的先后次序列出
-
 - -A：同a，但不列出"."和".."
-
 - -F：在列出的文件名称后加一个符号，可执行文件后加"*"，目录加"/"
-
 - -R：若目录下有文件，则其下文件也列出
+
+~~~shell
+ls -altF
+ls -R
+ll
+~~~
 
 ### 1.3 cd（change directory）
 
@@ -85,7 +87,7 @@
 
 - -d：复制时保留链接，相当于windows的快捷方式
 
-- -p：除赋值文件的内容外，还把修改时间和访问权限也复制到新文件中
+- -p：除复制文件的内容外，还把修改时间和访问权限也复制到新文件中，如果不加-p，则时间为当前系统时间
 
 - -r：recursive，递归复制整个文件夹
 
@@ -94,6 +96,10 @@
 - -i：覆盖前提示是否要覆盖
 
 - -l：不复制文件，只是生成链接文件
+
+~~~xml
+[haospring@izbp1adurb6tc9s27c82y5z ~]$ cp -rp test test2
+~~~
 
 ### 1.7 mv（move file）
 
@@ -142,11 +148,23 @@ mv /usr/test2 /usr/test3
 选项：
 
 - a 改变档案的读取时间记录。
+
 - m 改变档案的修改时间记录。
+
 - c 假如目的档案不存在，不会建立新的档案。
+
 - r 使用参考档的时间记录。
+
 - d 设定时间与日期，可以使用各种不同的格式。
+
 - t 设定档案的时间记录，格式与 date 指令相同。
+
+~~~shell
+# 创建两个文件
+touch program file
+# 创建一个带空格的文件名
+touch "program file"
+~~~
 
 ### 2.2 echo
 
@@ -232,16 +250,37 @@ cat /etc/redhat-release
 **常用操作命令**
 
 - Enter 向下n行，需要定义。默认为1行
+
 - Ctrl+F 向下滚动一屏
+
 - 空格键 向下滚动一屏
+
 - Ctrl+B 返回上一屏
+
 - = 输出当前行的行号
+
 - ：f 输出文件名和当前行的行号
+
 - V 调用vi编辑器
+
 - !命令调用Shell，并执行命令
+
 - q 退出more
 
-### 2.5 head
+### 2.5 less
+
+语法：less [选项] 文件
+
+描述：查看文件内容，可以通过/要搜索的字符，来在该文件中搜索指定字符
+
+可以通过F、空格向下翻一页，通过enter向下翻一行；通过PagUp向上翻一页
+
+~~~shell
+less /etc/services
+/tcp
+~~~
+
+### 2.6 head
 
 语法：head [选项] 文件
 
@@ -251,7 +290,7 @@ cat /etc/redhat-release
 
 - -n：查看头n行
 
-### 2.6 tail
+### 2.7 tail
 
 语法：tail [选项] 文件
 
@@ -262,7 +301,7 @@ cat /etc/redhat-release
 - -n：末尾几行
 - -f：follow输出文件修改的内容，用于追踪文件修改，不断刷新
 
-### 2.7 wc
+### 2.8 wc
 
 语法：wc [选项] 文本
 
@@ -274,13 +313,13 @@ cat /etc/redhat-release
 - -w：显示单词数
 - -c：显示字节数
 
-### 2.8 file
+### 2.9 file
 
 语法：file [选项] 文件
 
 描述：用于查看文件类型
 
-### 2.9 wget
+### 2.10 wget
 
 语法：wget [选项] [url地址]
 
@@ -294,6 +333,21 @@ cat /etc/redhat-release
 - -c：continue断d点续传
 - -p：page-requisites下载页面所有内容，包括图片、视频等
 - -r：recursive递归下载
+
+### 2.11 链接ln（link）
+
+语法：ln [选项] [源文件] [目标文件]
+
+描述：生成链接文件
+
+选项：
+
+- -s：创建软链接
+- 不加s：创建硬链接
+
+软链接：文件是l开头，类似于windows的快捷方式，指向源文件
+
+硬链接：文件是-开头，类似于复制粘贴的效果，但是可以实现同步更新，不能指向目录
 
 ## 三、查找命令
 
@@ -637,8 +691,6 @@ shutdown -h now
 shutdown -h 10 "10分钟后关机，请做好准备"
 ~~~
 
-
-
 ### 8.5 sync
 
 将内存中的数据写入到磁盘中
@@ -730,6 +782,11 @@ groupdel test2
 
 ~~~shell
 drwxr-xr-x   9 root  root       4096 Nov 26 14:38 apache-tomcat-8.5.60
+# drwxr-xr-x，第一位表示文件类型
+# 后面三个一组，分别是u（user），g（group），o（other）
+# 9 引用计数，表示文件被引用过多少次
+# root root	文件所有者，所有者所在的组
+# 最后修改时间，一般是创建的事件
 ~~~
 
 | 文件类型 |  文件拥有者的权限  |  群组的权限  | 其他人的权限 |
@@ -738,9 +795,9 @@ drwxr-xr-x   9 root  root       4096 Nov 26 14:38 apache-tomcat-8.5.60
 |  文件夹  | 可读、可写、可执行 | 可读、可执行 | 可读、可执行 |
 
 ~~~shell
--		一般文件
+-		二进制文件
 d		目录（文件夹）
-l		符号链接文件
+l		软链接文件
 b		磁盘设备文件
 c		字符设备文件
 s		Socket文件
@@ -801,8 +858,6 @@ chown user[:group] file
 ~~~shell
 chown haospring:test HelloWorld.java
 ~~~
-
-
 
 ## 十、权限提升
 
@@ -1024,4 +1079,30 @@ q：结束查找
 ### 15.3 info page
 
 ### 15.4 /usr/share/doc
+
+## 十六、内部命令和外部命令
+
+### 内部命令
+
+内部命令实际上是shell程序的一部分，通常在linux系统加载运行时shell就被加载并驻留在系统内存中。
+
+执行速度比外部命令快，因为解析内部命令shell不需要创建子进程
+
+### 外部命令
+
+外部命令是linux系统中的使用程序部分，在系统加载时并不随系统一起呗加载到内存中，而是在需要时才将其调用到内存中
+
+通常放在/bin、/usr/bin中
+
+echo $PATH可以打印外部命令的存储路径，如：ls、vi
+
+type指令可以分辨内部命令和外部命令
+
+~~~shell
+[root@izbp1adurb6tc9s27c82y5z ~]# type cd
+cd is a shell builtin
+[root@izbp1adurb6tc9s27c82y5z ~]# type mkdir
+mkdir is hashed (/usr/bin/mkdir)
+echo $PATH mkdir
+~~~
 
