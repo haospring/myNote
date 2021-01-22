@@ -16,7 +16,7 @@
 
    （3）Vue.js，借鉴了以上两种框架的优点，并采用MVVM的思想，构建了新的渐进式的开发框架；
 
- ![基本格式](vue%E5%9B%BE%E7%89%87/%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F.jpg)
+![基本格式](vue%E5%9B%BE%E7%89%87/%E5%9F%BA%E6%9C%AC%E6%A0%BC%E5%BC%8F.jpg)
 
 2. MVVM思想
 
@@ -70,7 +70,7 @@
 
 ​	练习：下拉框
 
-![下拉框](vue%E5%9B%BE%E7%89%87/%E4%B8%8B%E6%8B%89%E6%A1%86.jpg)
+ ![下拉框](vue%E5%9B%BE%E7%89%87/%E4%B8%8B%E6%8B%89%E6%A1%86.jpg)
 
 ​	（5）v-show与v-if
 
@@ -82,7 +82,7 @@
 
 ​	声明boolean类型的数据，等价于java中的else if的使用；使用过程中注意事项：v-if和v-else-if一起使用时，二者之间不能存在其他的数据，必须连着写
 
-![省市区三级联动](vue%E5%9B%BE%E7%89%87/%E7%9C%81%E5%B8%82%E5%8C%BA%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8.jpg)
+ ![省市区三级联动](vue%E5%9B%BE%E7%89%87/%E7%9C%81%E5%B8%82%E5%8C%BA%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8.jpg)
 
 ​	总结：v-if、v-else-if、v-else，由它们定义的程序在执行时按照从上而下的顺序进行执行，一旦满足条件则后续内容不执行，条件满足时该属性执行的是标签的删除操作；等价于java中的if else if else
 
@@ -539,29 +539,7 @@
    </script>
    ~~~
 
-
-~~~mysql
-select tid from teacher where tname = '李平'
-select cid from course where teacher_id = (select tid from teacher where tname = '李平')
-select student_id from score where course_id in(select cid from course where teacher_id = (select tid from teacher where tname = '李平'))
-select * from student where sid in(select student_id from score where course_id in(select cid from course where teacher_id = (select tid from teacher where tname = '李平')));
-~~~
-
-~~~mysql
-select sid from student where sname = '张三'
-select cid from course where cname = '生物'
-select number from score where student_id  = (select sid from student where sname = '张三') and course_id = (select cid from course where cname = '生物');
-~~~
-
-~~~mysql
-select sname from student where sid in (select student_id from score where number<60)
-select cname from course where cid in (select course_id from score where number<60)
-
-select (select sname from student where sid in (select student_id from score where number<60)) as 姓名,
-(select cname from course where cid in (select course_id from score where number<60)) as 科目;
-~~~
-
-## 10. vue的声明周期
+## 10. vue的生命周期
 
 vue的生命周期通过钩子函数进行诠释，介绍四个部分：
 
