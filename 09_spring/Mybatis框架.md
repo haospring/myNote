@@ -391,3 +391,258 @@ public void test2() {
 
 不建议
 
+## 8. 使用注解开发
+
+### 8.1 用例
+
+引入使用注解的接口，将接口注册绑定到mybatis的核心配置文件
+
+~~~xml
+<mappers>
+    <mapper class="com.haospring.dao.UserMapper"/>
+</mappers>
+~~~
+
+UserMapper接口，基本的CRUD
+
+~~~java
+public interface UserMapper {
+    @Select("select * from user")
+    List<User> queryAll();
+
+    @Select("select * from user where id=#{id}")
+    User queryUserById(Integer id);
+
+    @Insert("insert into user values(null,#{name},#{pwd})")
+    int addUser(User user);
+
+    @Update("update user set name=#{name},pwd=#{pwd} where id=#{id}")
+    int updateUser(User user);
+
+    @Delete("delete from user where id=#{id}")
+    int deleteUser(Integer id);
+}
+
+~~~
+
+### 8.2 @Param
+
+- 基本类型的参数或者String类型，需要加上该注解
+- 应用数据类型不需要加
+- 如果只有一个基本类型的话，可以不加@Param注解，但是建议加上
+- 在sql中引用的就是@Param("uid",Integer id)中的uid
+
+~~~java
+User queryUserById(@Param("id") Integer id);
+~~~
+
+### 8.3 #和$
+
+#{} 能够很大程度上防止sql注入
+
+${} 可能会遇到sql注入
+
+相当于PreparedStatement和Statement的区别
+
+## 9. 多对一
+
+- 多个学生对应一个老师（多对一）
+- 一个老师对应多个学生（一对多）
+
+### 9.1 按照查询嵌套处理
+
+相当于子查询
+
+~~~xml
+<select id="queryStudentAndTeacher2" resultMap="studentMap2">
+    select * from student;
+</select>
+<resultMap id="studentMap2" type="student" autoMapping="true">
+    <association property="teacher" column="tid" javaType="teacher" autoMapping="true" select="queryTeacher"/>
+</resultMap>
+<select id="queryTeacher" resultType="teacher">
+    select * from teacher where id=#{tid}
+</select>
+~~~
+
+### 9.2 按照结果嵌套查询
+
+相当于多表连接查询
+
+~~~xml
+<resultMap id="studentMap" type="student" autoMapping="true">
+    <id column="id" property="id"/>
+    <association property="teacher" javaType="teacher" autoMapping="true">
+        <id column="tid" property="id"/>
+        <result column="tname" property="name"/>
+    </association>
+</resultMap>
+<select id="queryStudentAndTeacher" resultMap="studentMap">
+    select s.*, t.id tid, t.name, t.name tname
+    from student s,
+    teacher t
+    where s.tid = t.id;
+</select>
+~~~
+
+## 10. 一对多
+
+### 10.1 按照查询结果映射
+
+~~~xml
+<resultMap id="teacherMap" type="teacher" autoMapping="true">
+    <collection property="students" autoMapping="true" ofType="student">
+        <result column="sid" property="id"/>
+        <result column="sname" property="name"/>
+    </collection>
+</resultMap>
+<select id="queryTeacher" resultMap="teacherMap">
+    select t.*, s.id sid, s.name sname
+    from teacher t,
+    student s;
+</select>
+~~~
+
+### 10.2 小结
+
+1. 关联 - association（多对一，用于成员变量是对象）
+2. 集合 - collection（一对多，用户成员变量是集合）
+3. javaType & ofType
+   1. javaType 用来指定实体类中属性的类型
+   2. ofType 用来指定映射到List或者集合中的实体类型，泛型中的约束类型
+
+### 10.3 注意事项
+
+1. 保证sql的可读性
+2. 注意一对多和多对一中，属性名和字段名的问题
+   1. 如果两张表的字段名相同，会出现映射的结果为主表的情况
+   2. 需要起别名，区分两张表的字段
+
+## 11. 动态sql
+
+动态sql就是指根据不同的条件生成不同的sql语句
+
+- if
+- choose (when, otherwise)
+- trim (where, set)
+- foreach
+
+### 11.1 if
+
+~~~xml
+<select id="queryAll" resultType="blog">
+    select * from blog
+    <where>
+    	<if test="title!=null">
+            and title=#{title}
+        </if>
+        <if test="author!=null">
+            and author=#{author}
+        </if>
+    </where>
+</select>
+~~~
+
+### 11.2 choose (when, otherwise)
+
+相当于switch case default
+
+~~~xml
+<select id="queryBlogChoose" resultType="blog">
+        select * from blog
+        <where>
+            <choose>
+                <when test="title!=null">
+                    and title=#{title}
+                </when>
+                <when test="author!=null">
+                    and author=#{author}
+                </when>
+                <otherwise>
+                    and views=#{views}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+~~~
+
+### 11.3 trim (where, set)
+
+where元素只会在子元素返回任何内容的情况下才插入 “WHERE” 子句。而且，若子句的开头为 “AND” 或 “OR”，where元素也会将它们去除。
+
+*set* 元素会动态地在行首插入 SET 关键字，并会删掉额外的逗号
+
+~~~xml
+<update id="updateBlogSet">
+    update blog
+    <set>
+        <if test="title!=null">
+            title=#{title},
+        </if>
+        <if test="author!=null">
+            author=#{author},
+        </if>
+        <if test="createTime!=null">
+            create_time=#{createTime}
+        </if>
+        <if test="views!=null">
+            views=#{views}
+        </if>
+    </set>
+    <where>
+        id=#{id}
+    </where>
+</update>
+~~~
+
+### 11.4 sql片段
+
+有时候可能某个 sql 语句我们用的特别多，为了增加代码的重用性，简化代码，我们需要将这些代码抽取出来，然后使用时直接调用。
+
+**提取SQL片段**
+
+~~~xml
+<sql id="if-title-author">
+   <if test="title != null">
+      title = #{title}
+   </if>
+   <if test="author != null">
+      and author = #{author}
+   </if>
+</sql>
+~~~
+
+**引用SQL片段**
+
+~~~xml
+<select id="queryBlogIf" parameterType="map" resultType="blog">
+  select * from blog
+   <where>
+       <!-- 引用 sql 片段，如果refid 指定的不在本文件中，那么需要在前面加上 namespace -->
+       <include refid="if-title-author"></include>
+       <!-- 在这里还可以引用其他的 sql 片段 -->
+   </where>
+</select>
+~~~
+
+### 11.5 Foreach
+
+~~~xml
+<select id="queryBlogForeach" parameterType="map" resultType="blog">
+  select * from blog
+   <where>
+       <!--
+       collection:指定输入对象中的集合属性
+       item:每次遍历生成的对象
+       open:开始遍历时的拼接字符串
+       close:结束时拼接的字符串
+       separator:遍历对象之间需要拼接的字符串
+       select * from blog where 1=1 and (id=1 or id=2 or id=3)
+     -->
+       <foreach collection="ids"  item="id" open="and (" close=")" separator="or">
+          id=#{id}
+       </foreach>
+   </where>
+</select>
+~~~
+
