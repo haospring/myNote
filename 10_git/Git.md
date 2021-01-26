@@ -111,3 +111,303 @@ git --global https.proxy "127.0.0.1:7890"
 
  ![环境配置](GitPicture/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.jpg)
 
+### 2.6 生成公钥
+
+在C:\Users\14727\ .ssh下生成公钥，如果没有.ssh文件夹，可以手动创建
+
+~~~shell
+git-keygen -t rsa
+~~~
+
+id_rsa.pub
+
+将生成的公钥配置到gitee或github上
+
+## 3. Git基本理论
+
+### 3.1 三个区域
+
+Git本地有三个工作区域：工作目录（Working Directory）、暂存区(Stage/Index)、资源库(Repository或Git Directory)。如果在加上远程的git仓库(Remote Directory)就可以分为四个工作区域。文件在这四个区域之间的转换关系如下：
+
+ ![三个区域](GitPicture/%E4%B8%89%E4%B8%AA%E5%8C%BA%E5%9F%9F.jpg)
+
+- Workspace：工作区，就是你平时存放项目代码的地方
+- Index / Stage：暂存区，用于临时存放你的改动，事实上它只是一个文件，保存即将提交到文件列表信息
+- Repository：仓库区（或本地仓库），就是安全存放数据的位置，这里面有你提交到所有版本的数据。其中HEAD指向最新放入仓库的版本
+- Remote：远程仓库，托管代码的服务器，可以简单的认为是你项目组中的一台电脑用于远程数据交换
+
+本地的三个区域确切的说应该是git仓库中HEAD指向的版本：
+
+- Directory：使用Git管理的一个目录，也就是一个仓库，包含我们的工作空间和Git的管理空间。
+- WorkSpace：需要通过Git进行版本控制的目录和文件，这些目录和文件组成了工作空间。
+- .git：存放Git管理信息的目录，初始化仓库的时候自动创建。
+- Index/Stage：暂存区，或者叫待提交更新区，在提交进入repo之前，我们可以把所有的更新放在暂存区。
+- Local Repo：本地仓库，一个存放在本地的版本库；HEAD会只是当前的开发分支（branch）。
+- Stash：隐藏，是一个工作状态保存栈，用于保存/恢复WorkSpace中的临时状态。
+
+### 3.2 工作流程
+
+1. 在工作目录中添加、修改文件；
+
+2. 将需要进行版本管理的文件放入暂存区域；
+3. 将暂存区域的文件提交到git仓库。
+
+git管理的文件有三种状态：已修改（modified）,已暂存（staged）,已提交(committed)
+
+![工作流程](GitPicture/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.jpg)
+
+## 4. Git项目搭建
+
+### 4.1 本地仓库搭建
+
+创建本地仓库的方法有两种：一种是创建全新的仓库，另一种是克隆远程仓库。
+
+1. 创建全新的仓库，需要用GIT管理的项目的根目录执行：
+
+```
+# 在当前目录新建一个Git代码库
+$ git init
+```
+
+2. 执行后可以看到，仅仅在项目目录多出了一个.git目录，关于版本等的所有信息都在这个目录里面。
+
+### 4.2 克隆远程仓库
+
+~~~shell
+git clone [url]
+~~~
+
+## 5. Git文件操作
+
+### 5.1 文件的四种状态
+
+版本控制就是对文件的版本控制，要对文件进行修改、提交等操作，首先要知道文件当前在什么状态，不然可能会提交了现在还不想提交的文件，或者要提交的文件没提交上。
+
+- Untracked: 未跟踪, 此文件在文件夹中, 但并没有加入到git库, 不参与版本控制. 通过git add 状态变为Staged.
+- Unmodify: 文件已经入库, 未修改, 即版本库中的文件快照内容与文件夹中完全一致. 这种类型的文件有两种去处, 如果它被修改, 而变为Modified. 如果使用git rm移出版本库, 则成为Untracked文件
+- Modified: 文件已修改, 仅仅是修改, 并没有进行其他的操作. 这个文件也有两个去处, 通过git add可进入暂存staged状态, 使用git checkout 则丢弃修改过, 返回到unmodify状态, 这个git checkout即从库中取出文件, 覆盖当前修改 !
+- Staged: 暂存状态. 执行git commit则将修改同步到库中, 这时库中的文件和本地文件又变为一致, 文件为Unmodify状态. 执行git reset HEAD filename取消暂存, 文件状态为Modified
+
+~~~shell
+# 查看文件的状态
+git status
+# 添加文件
+git add .
+# 提交到本地仓库
+git commit -m “message"
+# 推送到远程仓库
+git push
+~~~
+
+### 5.2 忽略文件
+
+有些时候我们不想把某些文件纳入版本控制中，比如数据库文件，临时文件，设计文件等
+
+在主目录下建立".gitignore"文件，此文件有如下规则：
+
+1. 忽略文件中的空行或以井号（#）开始的行将会被忽略。
+2. 可以使用Linux通配符。例如：星号（*）代表任意多个字符，问号（？）代表一个字符，方括号（[abc]）代表可选字符范围，大括号（{string1,string2,...}）代表可选的字符串等。
+3. 如果名称的最前面有一个感叹号（!），表示例外规则，将不被忽略。
+4. 如果名称的最前面是一个路径分隔符（/），表示要忽略的文件在此目录下，而子目录中的文件不忽略。
+5. 如果名称的最后面是一个路径分隔符（/），表示要忽略的是此目录下该名称的子目录，而非文件（默认文件或目录都忽略）。
+
+~~~shell
+#为注释
+*.txt        #忽略所有 .txt结尾的文件,这样的话上传就不会被选中！
+!lib.txt     #但lib.txt除外
+/temp        #仅忽略项目根目录下的TODO文件,不包括其它目录temp
+build/       #忽略build/目录下的所有文件
+doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
+~~~
+
+## 6. 版本回退
+
+### 6.1 历史记录
+
+查看历史修改记录，及每次修改提交的信息
+
+~~~shell
+git log
+~~~
+
+ ![版本回退_log](GitPicture/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80_%E6%97%A5%E5%BF%97.jpg)
+
+显示上一次版本提交的信息
+
+~~~shell
+git log --pretty=oneline
+~~~
+
+版本回退
+
+~~~shell
+# 回退到上一个版本
+git reset --hard HEAD^
+# 回退到上两个版本
+git reset --hard HEAD^^
+# 回退到上100个版本
+git reset --hard HEAD~100
+# 回退到指定的版本，版本号可以不写全，自动匹配
+git reset --hard 09fff1
+~~~
+
+查看每一次操作的版本号，根据版本号回退
+
+~~~shell
+git reflog
+~~~
+
+查看工作区和版本库里面最新版本的区别
+
+~~~shell
+git diff HEAD -- readme.txt
+~~~
+
+### 6.2 撤销修改
+
+放弃工作区的修改,让这个文件回到最近一次`git commit`或`git add`时的状态
+
+~~~shell
+git checkout -- <file>
+~~~
+
+修改只是添加到了暂存区，还没有提交，撤销修改，重新放回工作区
+
+~~~shell
+git reset HEAD <file>
+~~~
+
+从暂存区提交到了版本库，还没有把自己的本地版本库推送到远程，回退到上一个版本
+
+~~~shell
+git reset --hard HEAD^
+~~~
+
+### 6.3 删除文件
+
+本地删除文件，版本库中也要删除文件
+
+~~~shell
+git rm||add hello.txt
+git commit -m "delete hello.txt"
+~~~
+
+本地误删文件，从版本库恢复
+
+~~~shell
+git restore hello.txt
+~~~
+
+## 7. 远程仓库
+
+1. 将本地仓库与新建的远程仓库关联
+
+~~~shell
+git remote add origin git@github.com:haospring/LearnGit
+~~~
+
+2. 将本地仓库内容推送到远程仓库，首次提交加上-u
+
+~~~shell
+git push -u origin main
+~~~
+
+## 8. 分支
+
+### 8.1 创建与合并分支
+
+1. 创建分支
+
+~~~shell
+git checkout -b dev
+# -b表示创建并切换，相当于以下两条语句的合并
+# git branch dev
+# git checkout dev
+~~~
+
+2. 查看当前分支，显示所有分支
+
+~~~shell
+git branch
+~~~
+
+3. 将本地分支与远程分支关联
+
+~~~shell
+git push --set-upstream origin main
+~~~
+
+4. 切换分支
+
+~~~shell
+git checkout dev
+# 新版本git可以使用git switch dev来切换分支
+~~~
+
+5. 合并分支，合并指定分支到当前分支
+
+~~~shell
+git merge dev
+~~~
+
+6. 删除分支
+
+~~~shell
+git branch -d dev
+~~~
+
+说明：合并两个分支时可能报错fatal: refusing to merge unrelated histories
+
+~~~shell
+git merge master --allow-unrelated-histories -m "message"
+~~~
+
+git pull和git push也可能出现该错误，操作同上                    
+
+
+
+## 6. IDEA中集成Git
+
+1、将远程仓库克隆到本地，将目录中的内容拷贝到IDEA项目的工作目录
+
+2、修改文件，使用IDEA操作git。
+
+- 添加到暂存区
+- commit 提交
+- push到远程仓库
+
+3、提交测试
+
+## 说明 Git分支
+
+Git分支常用命令
+
+~~~shell
+
+# 列出所有本地分支
+git branch
+
+# 列出所有远程分支
+git branch -r
+
+# 新建一个分支，但依然停留在当前分支
+git branch [branch-name]
+
+# 新建一个分支，并切换到该分支
+git checkout -b [branch]
+
+# 合并指定分支到当前分支
+$ git merge [branch]
+
+# 删除分支
+$ git branch -d [branch-name]
+
+# 删除远程分支
+$ git push origin --delete [branch-name]
+$ git branch -dr [remote/branch]
+~~~
+
+如果同一个文件在合并分支时都被修改了则会引起冲突：解决的办法是我们可以修改冲突文件后重新提交！选择要保留他的代码还是你的代码！
+
+master主分支应该非常稳定，用来发布新版本，一般情况下不允许在上面工作，工作一般情况下在新建的dev分支上工作，工作完后，比如上要发布，或者说dev分支代码稳定后可以合并到主分支master上来。
+
