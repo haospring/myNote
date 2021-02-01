@@ -89,7 +89,11 @@ text = "yellow"：字体颜色
 
 1. 后代选择器
 
-   h1 p{}
+   - body p{}
+
+   - body>p{} 子选择器：只有一代
+   - .p2 + p{} 相邻兄弟选择器：只有一个，相邻向下
+   - .p2 ~ p{} 通用选择器:当前标签向下所有兄弟元素
 
 2. 交集选择器，后面只能是类或者id
 
@@ -229,6 +233,28 @@ color：阴影颜色
 text-shadow: 5px 3px 3px #674c90;
 ~~~
 
+# 盒子模型
+
+- margin 外边距 属性：上，右，下，左
+- padding 内边距 属性：上，右，下，左
+- border 边框，属性：粗细，样式（solid实线），颜色
+  - border-radius 属性：左上，右上，右下，左下，等于宽度和高度则是圆
+- background-image: linear-gradient(115deg,#008000 0%,#6248FF 50%,#FF0000 100%); 背景颜色渐变轴为115度，三种颜色渐变，高度分别为0% 50% 100%
+- background-repeat 背景平铺样式
+  - repeat 默认。背景图像将在垂直方向和水平方向重复。
+  - repeat-x 背景图像将在水平方向重复。
+  - repeat-y 背景图像将在垂直方向重复。
+  - no-repeat 背景图像将仅显示一次。
+  - inherit 规定应该从父元素继承 background-repeat 属性的设置。
+- 块级元素：独占一行，如h1~h6,p div ,列表
+- 行内元素：不独占一行，span,a,img,strong,button…
+  - display属性可修改元素类型
+    - block 块元素
+    - inline 行内元素
+    - inline-block 是块元素，但是可以内联，在一行
+    - none 隐藏
+- 行内块元素
+
 # 表格和表单
 
 ## 表格
@@ -245,9 +271,8 @@ text-shadow: 5px 3px 3px #674c90;
 <!-- css样式border-collapse:collapse;单元格边框合并 -->
 <table align = "center" border = "0.5" cellspacing = "0" width = "300" height = "300">
     <caption>表格标题</caption>
-    <th>表头，黑体加粗，居中</th>
     <tr>
-    	<th></th>
+    	<th>表头，黑体加粗，居中</th>
         <th></th>
         <th></th>
     </tr>
@@ -319,11 +344,11 @@ text-shadow: 5px 3px 3px #674c90;
    必须设置value值
 
    ~~~html
-   <input type="checkbox" />美妆
-   <input type="checkbox" />男装
-   <input type="checkbox" />女装
-   <input type="checkbox" />鞋狗
-   <input type="checkbox" />潮玩
+   <input type="checkbox" name="kinds" />美妆
+   <input type="checkbox" name="kinds" />男装
+   <input type="checkbox" name="kinds" />女装
+   <input type="checkbox" name="kinds" />鞋狗
+   <input type="checkbox" name="kinds" />潮玩
    ~~~
 
 5. 下拉列表 选择框
@@ -370,7 +395,6 @@ text-shadow: 5px 3px 3px #674c90;
    <input type = "hidden" name = "a" value = "abc" />
    ~~~
 
-   
 
 
 # 浮动
@@ -381,15 +405,20 @@ text-shadow: 5px 3px 3px #674c90;
 
 ~~~html
 static：默认值、没有定位
+
 <!-- 不脱离标准流，原有的位置不会被其后的元素占用；移动参考点是标准流中的位置 -->
 relative：相对定位
+
 <!-- 1.参考点：浏览器窗口；设置了定位属性的父标记 2.脱离标准流，原来的位置释放,到达了绝对定位平面-->
 absolute：绝对定位
+
 <!-- 1.参考点是浏览器窗口 2.脱离标准流，原来的位置释放 -->
 fixed：固定定位
-z-index
-opacity：透明度（0-1）
 ~~~
+
+- 图层
+  - z-index 最小为0，越大越在前面
+  - opacity 0~1，透明度，越小越透明
 
 # iframe
 
