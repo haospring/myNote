@@ -60,6 +60,10 @@
 
 ​	v-model：是完成数据双向绑定和交互的（标签<=>data），标签引用data则数据不发生改变，如果完成双向绑定，页面标签引用data中的数据可以随时变化，标签中的数据变了，data中的数据也会变化
 
+- text 和 textarea 元素使用 `value` property 和 `input` 事件；
+- checkbox 和 radio 使用 `checked` property 和 `change` 事件；
+- select 字段将 `value` 作为 prop 并将 `change` 作为事件。
+
 ​	练习1：单选框
 
  ![exam_v-model](vue%E5%9B%BE%E7%89%87/exam_v-model.jpg)
