@@ -52,7 +52,6 @@ free
 free -h
 ~~~
 
-![tupain](https://raw.githubusercontent.com/haospring/springPic/main/img/Snipaste_2020-10-06_10-20-52.jpg)
 ## 进制转换
 
 十进制——>二进制		n/2，取余数的倒值

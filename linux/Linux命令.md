@@ -904,6 +904,24 @@ chown user[:group] file
 chown haospring:test HelloWorld.java
 ~~~
 
+### 9.7 文件种类与扩展名
+
+Linux的文件是否可以执行与文件扩展名无关
+
+和文件前面的十个权限有关
+
+当文件权限为x表示该文件有执行的能力，但是能不能执行成功需要根据文件的内容
+
+e.g. 将文件`/usr/bin/cat`的权限去掉x，则该文件不能被使用
+
+~~~shell
+# 去掉cat文件的可执行权限
+chmod a-x /usr/bin/cat
+# 使用cat会提示权限不够
+cat test.txt
+# -bash: /usr/bin/cat: 权限不够
+~~~
+
 ## 十、权限提升
 
 sudo命令
