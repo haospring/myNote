@@ -269,7 +269,7 @@ text-shadow: 5px 3px 3px #674c90;
 <!-- border设置边框 -->
 <!-- cellspacing设置单元格之间的距离，为0时是距离为0，不是完全重合 -->
 <!-- css样式border-collapse:collapse;单元格边框合并 -->
-<table align = "center" border = "0.5" cellspacing = "0" width = "300" height = "300">
+<table align = "center" border = "1" cellspacing = "0" width = "300" height = "300">
     <caption>表格标题</caption>
     <tr>
     	<th>表头，黑体加粗，居中</th>
@@ -289,7 +289,7 @@ text-shadow: 5px 3px 3px #674c90;
 需要用户输入或选择的信息，都要在表单里，可以将表单和表格配合使用，实现表单的整齐
 
 - 表单提交时，数据没有发送给服务器的三种情况
-  - 表单项没有那么属性值
+  - 表单项没有name属性值
   - 单选、复选（下拉列表中的option标签）都需要添加value属性，以便提交到服务器
   - 表单项不在提交的form标签中
 - get请求的特点
@@ -304,7 +304,7 @@ text-shadow: 5px 3px 3px #674c90;
 ~~~html
 <!-- action属性设置提交的服务器地址 -->
 <!-- method属性设置提交的方式get（默认值）或post -->
-<form action = "" method = ""></form>
+<form action = "#" method = "get"></form>
 ~~~
 
 1. 文本框
@@ -356,7 +356,7 @@ text-shadow: 5px 3px 3px #674c90;
    ~~~html
    <!-- selected属性，默认选择 -->
    <!-- select标签的multiple = "multiple"可以设置多选 -->
-   <select>
+   <select multiple="multiple">
    	<option value ="1">辽宁</option>
    	<option value ="2" selected="selected">黑龙江</option>
    	<option value ="2">吉林</option>
@@ -368,7 +368,7 @@ text-shadow: 5px 3px 3px #674c90;
    设置文本域的框大小不可拖动，需要加resize：none样式
 
    ~~~html
-   <textarea rows="5" cols="20">我是文本域的默认值</textarea>
+   <textarea rows="5" cols="20" resize="none">我是文本域的默认值</textarea>
    ~~~
 
 7. 文件上传
@@ -394,8 +394,6 @@ text-shadow: 5px 3px 3px #674c90;
    <!-- 当我们要发送某些信息，而这些信息，不需要用户参与，就可以使用隐藏域（提交的时候同时发送给服务器） -->
    <input type = "hidden" name = "a" value = "abc" />
    ~~~
-
-
 
 # 浮动
 

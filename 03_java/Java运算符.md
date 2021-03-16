@@ -22,8 +22,6 @@ System.out.println(-3 / 2);// -1
 System.out.println(-3 / -2);// 1
 ~~~
 
-
-
 ### 位运算符
 
 &、|、^、~、<<、>>、>>>

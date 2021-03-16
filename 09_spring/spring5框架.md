@@ -679,7 +679,7 @@ public void before(){
 
 5. 相同的切入点抽取
 
-~~~xml
+~~~java
 @Pointcut(value = "execution(* com.haospring.aopAnnotation.User.add(..))")
 public void pointDemo(){
 }

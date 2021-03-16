@@ -29,7 +29,9 @@ public class Demo01 {
 		// round():四舍五入
 		System.out.println(Math.round(4.4));
 		System.out.println(Math.round(4.5));
-		// sqrt():开平方
+        System.out.println(Math.round(-4.5));//-4，沿着数轴向右取整
+        System.out.println(Math.round(-4.4));//-4
+        // sqrt():开平方
 		System.out.println(Math.sqrt(4));
 		// pow():x的a次幂
 		System.out.println(Math.pow(2, 3));

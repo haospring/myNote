@@ -22,8 +22,6 @@ c、在html中引入外部的js文件；	--推荐使用
 <script type = "text/javascript" src = "1.js" ></script>
 ~~~
 
-
-
 ## js的基本语法
 
 ### 基本规则
@@ -191,8 +189,6 @@ function fun(){
 fun(1,"abc",true);
 ~~~
 
-
-
 4）函数的三种调用方式
 	a、三种方式：普通调用、超链接调用、对象的事件调用；
 
@@ -213,8 +209,6 @@ fun(1,"abc",true);
     <input type = "button" value= "按钮" onclick = "fun();"/>
 </script>
 ~~~
-
-
 
 5）内部函数
 	a、js本身在带很多有功能的函数，可以直接调用使用
@@ -237,8 +231,6 @@ var fun = function(a,b){
 }
 alert(fun(3,4));//7
 ~~~
-
-
 
 ### 对象
 
@@ -278,8 +270,6 @@ alert(obj.name);
 alert(obj.fun());
 
 ~~~
-
-
 
 #### Array
 

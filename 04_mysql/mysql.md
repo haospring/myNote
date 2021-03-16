@@ -61,7 +61,7 @@ services.msc 打开服务
 - 创建表的语句
 
   - 数据库中的表相当于java中一个类
-  - 表中列明相当于java中的成员变量
+  - 表中列名相当于java中的成员变量
   - 表中的每一行数据相当于java中的实体对象
   - 数据库开发中如果想要定义表，需要定义表名、列名、每一个列的数据类型
 
@@ -123,6 +123,9 @@ services.msc 打开服务
       emp_birth date
   );
   show columns from tb_employee;
+  # 增加主键约束和删除主键约束
+  alter table tb_employee add primary key(emp_no);
+  alter table tb_employee drop primary key(emp_no);
   ~~~
 
 - 唯一约束（unique）
@@ -248,7 +251,7 @@ services.msc 打开服务
   - 如果是全表数据录入，表名后面的列名可以省略不写
   - 如果不是全表数据录入，需要在后面描述录入数据的列名
   - value或values中所描述的数据必须和表中的字段一一对应（值必须与列的类型相对应，值的大小必须满足列的大小）
-  - 如果录入语句value描述的一位置但行录入，如果是values意味着批量录入（多行录入）
+  - 如果录入语句value描述的一位置单行录入，如果是values意味着批量录入（多行录入）
   - 字符串和日期类型在录入数据时，由单引号描述
   - 插入空值可以写null
   - 如果主键是int类型，并且设定了自动增长，插入数据时可以给主键字段赋值null
@@ -433,7 +436,7 @@ services.msc 打开服务
 
 ### SQL中的函数
 
-  - 描述：聚集函数（聚合函数）：分成为分组函数，主要引用sql中自带的函数，完成分组数据的统计；
+  - 描述：聚集函数（聚合函数）：又称为分组函数，主要引用sql中自带的函数，完成分组数据的统计；
 
   - 语法格式：select function(列) from 表名;
 
@@ -524,7 +527,7 @@ services.msc 打开服务
 
   - s...f...w...g...h...o...
   - select... from... where... group by... having... order by
-  - 执行书序：f...w...g...h...o...s
+  - 执行顺序：from... where... group by... having... select... distinct... order by
 
 
 #### SQL中的其他函数
@@ -559,7 +562,6 @@ select truncate(2.54,1),truncate(2.54,2),truncate(2.54,3),truncate(-1,0);
 ##### 字符串函数
 
 ~~~mysql
-
 # 返回字符串包含字符的个数（char_length(str))
 select char_length('java');# 4
 select char_length('你好');# 2
@@ -569,12 +571,10 @@ select length('abc'),length('你好啊');# 3 9
 # java面向对象，null
 select concat('java','面向对象'),concat('java',null,'面向对象');
 # 在拼接的过程中添加分隔符号(concat_ws(参数1，参数2...))，如果出现null，可以忽略null
-select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对象'),concat('java',null,'面向对象');
+select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对象'),concat_ws('java',null,'面向对象');
 ~~~
 
-
-
-  ![concat_ws](./mysql图片/concat_ws)
+![concat_ws](./mysql图片/concat_ws)
 
   - insert(str1,s,len,str2)插入字符串
     - str1：原字符串
@@ -586,14 +586,14 @@ select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对
   - righ(s,n)
     - 根据指定的参数s获取右边n个字符
 
-  ![image-20201119104352703](./mysql图片/right)
+![image-20201119104352703](./mysql图片/right)
 
   - replace（str,s1,s2)
     - s：原字符串
     - s1：原字符串具体的字符
     - s2：用来替换的新字符
 
-  ![image-20201119104646819](mysql%E5%9B%BE%E7%89%87/replace())
+![image-20201119104646819](mysql%E5%9B%BE%E7%89%87/replace())
 
   - subString(str,n,len)
     - s：原字符串
@@ -601,7 +601,7 @@ select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对
     - len：截取长度
     - 字符串中空格也占位，截取时包括起始位置所对应的字符
 
-  ![image-20201119105012450](mysql%E5%9B%BE%E7%89%87/substring())
+![image-20201119105012450](mysql%E5%9B%BE%E7%89%87/substring())
 
 ##### 日期和时间函数
 
@@ -616,13 +616,13 @@ select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对
   - 格式：yyyy-MM-dd hh:mm:ss
   - 格式：yyyyMMddhhmmss
 
- **![image-20201119111145881](mysql%E5%9B%BE%E7%89%87/now())**
+**![image-20201119111145881](mysql%E5%9B%BE%E7%89%87/now())**
 
 - 显示时间的函数：curtime()和current_time()
   - 格式1：hh:mm:ss
   - 格式2：hhmmss
 
- ![image-20201119111536254](mysql图片/curdate()和current_date())
+![image-20201119111536254](mysql图片/curdate()和current_date())
 
 - 数据库中日期和时间的固定格式（格式）：
   - HOUR - 小时  MINUTE - 分钟  SECOND - 秒  MICROSECOND - 毫秒  MONTH - 月  DAY-日  WEEK - 周  QUARTER - 季
@@ -654,7 +654,7 @@ select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对
   - select * |列名 from 表名 limit start,end;
   - start：表示起始从第几行开始
   - end：表示一共查询几条记录
-  - 在数据表中起始行下标从0开始
+  - 在数据表中limit起始行下标从0开始
 
  ![image-20201119135030730](mysql%E5%9B%BE%E7%89%87/limit.jpg)
 
@@ -671,7 +671,7 @@ select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对
 
 ##### 多表约束
 
-- foreign key：外键约束，通常情况下用于夺标关联，与主键形成关联关系
+- foreign key：外键约束，通常情况下用于多表关联，与主键形成关联关系
 
 ~~~mysql
 # e.g. 创建tb_person表（id int pk ,name varchar(30）,address varchar(50));
@@ -742,7 +742,7 @@ ALTER TABLE user_order DROP FOREIGN KEY 'user_id';
 - 描述：多个表之间通过一定的连接条件，使表和表之间产生关联，通过这种关联条件可以获得多表的数据查询
 - 语法格式：select 表名1.列名 = 表2.列名，... from 表名1，表名2，... where 表名1.列名 = 表名2.列名
 - 连接类型：等值连接和非等值连接
-- 其他分类方式：外部链接和内部连接
+- 其他分类方式：外部连接和内部连接
 - 笛卡尔积：
   - 第一张表所有的行和第二张表所有的行发生连接（行*行）
   - 当连接条件在 查询中可以省略；
@@ -814,15 +814,13 @@ ALTER TABLE user_order DROP FOREIGN KEY 'user_id';
 
 - 全连接（全外链接）
 
-  - 描述：将左连接和右连接结果合并在一起称为全外链接（开发者要去除重复数据）
+  - 描述：将左连接和右连接结果合并在一起称为全外连接（开发者要去除重复数据）
   - 语法格式：select * from 表名 left join 表名 on 条件 
   - union
   - select * from 表名 right join 表名 on 条件;
   - 说明：将左外连接和右外连接合并到一起
   - union：该关键字是用来合并左外和右外的，该关键字后面可以跟all关键字，如果没有all代表去除重复项
   - union all：多个查询合并到一起，但是不去除重复项
-
-![](image-20201123101628293.png)
 
 ![image-20201123101836873](mysql%E5%9B%BE%E7%89%87/%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A52.jpg)
 
