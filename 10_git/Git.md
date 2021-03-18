@@ -193,8 +193,9 @@ git clone [url]
 git status
 # 添加文件
 git add .
+git add <filename>
 # 提交到本地仓库
-git commit -m “message"
+git commit -m "message"
 # 将本地dev分支推送到远程仓库的dev分支
 git push origin dev
 ~~~
@@ -240,11 +241,19 @@ git log --pretty=oneline
 
 版本回退
 
+--hard：工作区，暂存区，版本库全部回退
+
+--mixed：默认，工作区、暂存区回退
+
+--soft：工作区回退
+
 ~~~shell
 # 回退到上一个版本
 git reset --hard HEAD^
+git reset --hard head~
 # 回退到上两个版本
 git reset --hard HEAD^^
+git reset --hard head~~
 # 回退到上100个版本
 git reset --hard HEAD~100
 # 回退到指定的版本，版本号可以不写全，自动匹配
