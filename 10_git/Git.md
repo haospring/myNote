@@ -116,7 +116,7 @@ git --global https.proxy "127.0.0.1:7890"
 在C:\Users\14727\ .ssh下生成公钥，如果没有.ssh文件夹，可以手动创建
 
 ~~~shell
-git-keygen -t rsa
+ssh-keygen -t rsa
 ~~~
 
 id_rsa.pub
