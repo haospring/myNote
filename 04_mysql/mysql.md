@@ -574,7 +574,7 @@ select concat('java','面向对象'),concat('java',null,'面向对象');
 select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对象'),concat_ws('java',null,'面向对象');
 ~~~
 
-![concat_ws](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/concat_ws.png?token=AP3ELAU3H5XFWSFB56PDVJDAQ6OHK)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119102848904.png)
 
   - insert(str1,s,len,str2)插入字符串
     - str1：原字符串
@@ -586,14 +586,14 @@ select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对
   - righ(s,n)
     - 根据指定的参数s获取右边n个字符
 
-![image-20201119104352703](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119104352703.png?token=AP3ELAROKW2A6SKD4LEZLKLAQ6OOI)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119104352703.png)
 
   - replace（str,s1,s2)
     - s：原字符串
     - s1：原字符串具体的字符
     - s2：用来替换的新字符
 
-![image-20201119104646819](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119104646819.png?token=AP3ELARASP3YYTU4HV4WL6TAQ6ORM)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119104646819.png)
 
   - subString(str,n,len)
     - s：原字符串
@@ -601,7 +601,7 @@ select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对
     - len：截取长度
     - 字符串中空格也占位，截取时包括起始位置所对应的字符
 
-![image-20201119105012450](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119105012450.png?token=AP3ELAUPVYFFSJ4HXK4IOWLAQ6OVW)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119105012450.png)
 
 ##### 日期和时间函数
 
@@ -610,19 +610,19 @@ select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对
       - 两个日期函数基本都是按照yyyy-MM-dd或者是yyyyMMdd格式显示
       - 如果开发者在函数后面加0，则会将日期转换成数值进行显示
 
- ![image-20201119110858042](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119110858042.png?token=AP3ELATIHRGYQFNMHYYHIKTAQ6OXG)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119110858042.png)
 
 - now()获取当前时间，时间显示的同时，也可以显示日期
   - 格式：yyyy-MM-dd hh:mm:ss
   - 格式：yyyyMMddhhmmss
 
-![image-20201119111145881](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119111145881.png?token=AP3ELASTPCBSKZGEURQ3JP3AQ6OZA)**
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119111145881.png)
 
 - 显示时间的函数：curtime()和current_time()
   - 格式1：hh:mm:ss
   - 格式2：hhmmss
 
-![image-20201119111536254](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119111536254.png?token=AP3ELAUBWPG5PRORYZDVTELAQ6O22)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119111536254.png)
 
 - 数据库中日期和时间的固定格式（格式）：
   - HOUR - 小时  MINUTE - 分钟  SECOND - 秒  MICROSECOND - 毫秒  MONTH - 月  DAY-日  WEEK - 周  QUARTER - 季
@@ -634,7 +634,7 @@ select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对
     - expr：表达式，对应的就是具体的类型（e.g. MONTH）
     - unit：间隔时间的单位
 
- ![image-20201119113120411](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119113120411.png?token=AP3ELARVH5VPQ2CT42UXXQLAQ6O5C)
+ ![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119113120411.png)
 
 ##### 流程控制函数
 
@@ -656,7 +656,7 @@ select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对
   - end：表示一共查询几条记录
   - 在数据表中limit起始行下标从0开始
 
- ![image-20201119135030730](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119135030730.png?token=AP3ELAQJJNEOUGCBDWSWJADAQ6O6S)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119135030730.png)
 
 ### 多表查询
 
@@ -685,22 +685,22 @@ ALTER TABLE user_order DROP FOREIGN KEY 'user_id';
 
 人员信息表：
 
- ![image-20201119141218010](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119141218010.png?token=AP3ELAW57IEIIMIYBSBPNJDAQ6O72)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119141218010.png)
 
 身份证信息表：
 
- ![image-20201119141254064](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119141254064.png?token=AP3ELAV4GNNFXEM55GGLGR3AQ6PB6)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119141254064.png)
 
 查询idcard表中'356879458123698456'对应的pid
 
- ![image-20201119141613205](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119141613205.png?token=AP3ELAWG5FPLIEWONHT2QALAQ6P4E)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119141613205.png)
 
- ![image-20201119142008075](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119142008075.png?token=AP3ELAS7XKQHUCYYUPOFXNDAQ6P5Q)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119142008075.png)
 
 - foreign key(外键字段) references 主表表名（主键字段）
   - foreign key(pid) references from tb_person(id)
 
- ![image-20201119142710490](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119142710490.png?token=AP3ELAUB5AEJ6MBPSZH67J3AQ6P6Y)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119142710490.png)
 
 - 说明：如果表和表之间存在主外键关系映射，需要注意如下事项：
   - 删除数据时，先删除外键表数据，再删除主键表数据，否则会出现错误，违背主外键约束
@@ -719,13 +719,13 @@ ALTER TABLE user_order DROP FOREIGN KEY 'user_id';
 
 - 表tb_orders订单表（id pk auto，price double，uid int fk）
 
-     ![image-20201119150807310](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119150807310.png?token=AP3ELASAAVLLZH6KYEDCSPTAQ6P74)
+     ![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119150807310.png)
 
-     ![image-20201119151056627](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119151056627.png?token=AP3ELASHHDVHZ33D7YQZBXLAQ6QBA)
+     ![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119151056627.png)
 
 - 说明：用户表（tb_user）与订单表（tb_orders）二者之间是一对多的关系，一个用户对应多个订单
 
-     ![image-20201119152054916](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201119152054916.png?token=AP3ELAUWHDUCK24CIZ7XYE3AQ6QCO)
+     ![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201119152054916.png)
 
 ###### 多对多
 
@@ -749,28 +749,28 @@ ALTER TABLE user_order DROP FOREIGN KEY 'user_id';
   - 连接条件无效；
   - 通常情况下，开发中不推荐笛卡尔积的查询方式，建议必须在关联查询语句中定义where条件
 
- ![tb_emp](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/tb_emp.jpg?token=AP3ELAXF5HPBZKCHQUEPQATAQ6QDY)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/tb_emp.jpg)
 
- ![tb_dept](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/tb_dept.jpg?token=AP3ELAURCDPJ523PVNCRHPLAQ6QEY)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/tb_dept.jpg)
 
 - 等值连接
   - e.g. 查询所有员工的编号、姓名、部门编号、工作地点
 
- ![等值连接1](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A51.jpg?token=AP3ELAWVLWWVGDTM7BTPDILAQ6QF2)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A51.jpg)
 
- ![等值连接2](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A52.jpg?token=AP3ELASWROBFG7FB2FXOYETAQ6QG4)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A52.jpg)
 
 - 非等值连接查询
   - e.g. 每个员工的姓名、工资、工资级别
 
-![非等值连接](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E9%9D%9E%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A5.jpg?token=AP3ELAXDXMDAFNFOXMKADALAQ6QH4)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E9%9D%9E%E7%AD%89%E5%80%BC%E8%BF%9E%E6%8E%A5.jpg)
 
 - 自身连接
   - 也可以称为自连接，是一张表通过自身的列和本身其他列等值连接的一种方式
   - 通常开发中开发者可以模拟多表关联，对同一张表进行多个别名定义
   - e.g. 查询每个员工的姓名和上级的姓名
 
-![自身连接](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E8%87%AA%E8%BA%AB%E8%BF%9E%E6%8E%A5.jpg?token=AP3ELAVNCKI2YV2E2IJ3EUTAQ6QI6)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E8%87%AA%E8%BA%AB%E8%BF%9E%E6%8E%A5.jpg)
 
 - 交叉连接（与笛卡尔积的结果一样）：cross join
   - e.g. select e.ename,e.empno,d.deptno from tb_emp e cross join tb_dept d;
@@ -779,7 +779,7 @@ ALTER TABLE user_order DROP FOREIGN KEY 'user_id';
   - 如果开发者在使用自然连接时，表中列名和数据类型不相同则会报错
   - 语法格式：select 列名1，列名2... from表名1 natural join 表名2；
 
-![自然连接](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5.jpg?token=AP3ELASEKGH4PXHRIW4NGR3AQ6QJ2)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E8%87%AA%E7%84%B6%E8%BF%9E%E6%8E%A5.jpg)
 
 - 外部连接
   - 左外连接和右外连接
@@ -789,13 +789,13 @@ ALTER TABLE user_order DROP FOREIGN KEY 'user_id';
     - right outer join on(等值条件)
   - e.g. 查询所有员工的姓名、部门编号、部门名称
 
-![左外连接1](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A51.jpg?token=AP3ELARYOOSBOORCU2J6TA3AQ6QK2)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A51.jpg)
 
-![左外连接2](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A52.jpg?token=AP3ELAQM2266HQZB3RTKXJ3AQ6QLU)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E5%B7%A6%E5%A4%96%E8%BF%9E%E6%8E%A52.jpg)
 
 ​	查询所有员工的姓名、部门编号、部门名称，显示时包括没有员工的部门也要显示出来
 
-![右外连接](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5.jpg?token=AP3ELAUSY2POMAU6FLCW46TAQ6QOW)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E5%8F%B3%E5%A4%96%E8%BF%9E%E6%8E%A5.jpg)
 
 - 内连接
 
@@ -806,11 +806,11 @@ ALTER TABLE user_order DROP FOREIGN KEY 'user_id';
     - inner join 书写相关条件
     - select * from 表名 inner join 表名 on条件
 
-     ![内连接方式1](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E5%86%85%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F1.jpg?token=AP3ELAUFLGGPGL4GHBXMDADAQ6Q6I)
+    ![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E5%86%85%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F1.jpg)
 
     - 使用where关键字书写条件
 
-     ![内连接方式2](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E5%86%85%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F2.jpg?token=AP3ELARZDDABXUMJFTG2TSLAQ6RQK)
+    ![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E5%86%85%E8%BF%9E%E6%8E%A5%E6%96%B9%E5%BC%8F2.jpg)
 
 - 全连接（全外连接）
 
@@ -822,7 +822,7 @@ ALTER TABLE user_order DROP FOREIGN KEY 'user_id';
   - union：该关键字是用来合并左外和右外的，该关键字后面可以跟all关键字，如果没有all代表去除重复项
   - union all：多个查询合并到一起，但是不去除重复项
 
-![全外连接2](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A52.jpg?token=AP3ELASGWRE4LAWLIMIGOUTAQ6SD4)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E5%85%A8%E5%A4%96%E8%BF%9E%E6%8E%A52.jpg)
 
 ****
 
@@ -832,17 +832,17 @@ ALTER TABLE user_order DROP FOREIGN KEY 'user_id';
 
 （1）in 和 exists关键字
 
-![in](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/in.jpg?token=AP3ELAV6GGYZ572ME6KABZ3AQ6SG6)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/in.jpg)
 
 子查询
 
-![子查询](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E5%AD%90%E6%9F%A5%E8%AF%A2.jpg?token=AP3ELAWXREM237W5H2BMIZTAQ6SKE)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E5%AD%90%E6%9F%A5%E8%AF%A2.jpg)
 
 exists关键字：
 
 说明：主要用于判断，主要用于查询语句中；在嵌套查询中，如果嵌套的查询子句成立，则exists为true，主查询语句则执行，否则为false；
 
-![exists](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/exists.jpg?token=AP3ELAQZAXADO36NNWTQC7TAQ6SMQ)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/exists.jpg)
 
 （2）any、some、all关键字
 
@@ -854,33 +854,33 @@ all多个条件的所有，类似于max函数
 
 e.g. 查询获得最高分的学生的学号
 
-![all1](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/all1.jpg?token=AP3ELAW4XRMR7Z3WOURVBWLAQ6SNY)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/all1.jpg)
 
-![all2](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/all2.jpg?token=AP3ELARH72ON6JOU6QGGRQDAQ6SPS)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/all2.jpg)
 
 e.g. 查询编号为2的课程比编号为1的课程成绩高的所有学号
 
-![image-20201123113527067](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201123113527067.jpg?token=AP3ELAVLKVOC6B3WSQTU7QDAQ6SQ2)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201123113527067.jpg)
 
-![image-20201123122433066](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/image-20201123122433066.png?token=AP3ELAQHFUKWILV7YBNN4ATAQ6SR2)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/image-20201123122433066.png)
 
 ## 练习
 
 1. 查询大于平均成绩的同学的学号和姓名
 
-![练习1](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E7%BB%83%E4%B9%A01.jpg?token=AP3ELAR5LJWOUSS7VEWUH63AQ6SUO)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E7%BB%83%E4%B9%A01.jpg)
 
 2. 查询所有同学学号、姓名、选课数、总成绩
 
-![练习2](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E7%BB%83%E4%B9%A02.jpg?token=AP3ELAU4QFDGGV6M3HKYDEDAQ6SWK)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E7%BB%83%E4%B9%A02.jpg)
 
 3. 查询上过李彦宏老师课的学生姓名、学号
 
-![练习3.1](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E7%BB%83%E4%B9%A03.1.jpg?token=AP3ELAWF2FZW3IFWJDHI5VDAQ6S2I)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E7%BB%83%E4%B9%A03.1.jpg)
 
-![练习3.2](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E7%BB%83%E4%B9%A03.2.jpg?token=AP3ELATUAEKB4H6QGPY34WLAQ6S34)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E7%BB%83%E4%B9%A03.2.jpg)
 
 4. 统计每门课程学生选修人数（超过两人以上才统计）
 
-![练习4](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/%E7%BB%83%E4%B9%A04.jpg?token=AP3ELAWNFOA3SLTAXZ5AYP3AQ6S56)
+![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E7%BB%83%E4%B9%A04.jpg)
 
