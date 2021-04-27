@@ -50,6 +50,7 @@ cat /etc/centos-release
 lsb_release -a
 #查看内核版本
 uname -r
+cat /proc/v
 ~~~
 
 ## 查看硬件设备
@@ -58,7 +59,8 @@ uname -r
 #查看cpu
 lscpu
 #查看内存大小
-free -h
+free -hm
+# 查看内存信息
 cat /proc/meminfo
 #查看硬盘
 lsblk

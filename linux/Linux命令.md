@@ -101,10 +101,7 @@ cd ~haospring
 mkdir -p test/test2
 # 删除test2目录，如果删除test2后test为空，则将test也删除
 rmdir -p test/test2
-
 ~~~
-
-
 
 ### 1.6 cp（copy file）
 
@@ -114,7 +111,7 @@ rmdir -p test/test2
 
 选项：
 
-- -a：保留链接、文件属性，并赋值目录下的所有内容，相当于`-dr --preserve=all`（常用）
+- -a：保留链接、文件属性，并复制目录下的所有内容，相当于`-dr --preserve=all`（常用）
 
 - -d：若源文件为链接文件的属性，则复制链接文件属性而非文件本身
 
@@ -241,7 +238,7 @@ Sat Dec 12 11:38:39 CST 2020
 
 语法：cat [选项] 文件名
 
-描述：cat由第一行开始显示文件内容，tac有最后一行开始显示文件内容
+描述：cat由第一行开始显示文件内容，tac由最后一行开始显示文件内容
 
 选项：
 
@@ -264,9 +261,9 @@ Sat Dec 12 11:38:39 CST 2020
 - -t：等价于"-vT"选项。
 
 ~~~shell
+# 查看版本信息
 cat /proc/version
 uname -a
-
 cat /etc/redhat-release
 ~~~
 
@@ -293,7 +290,7 @@ cat /etc/redhat-release
 - V 调用vi编辑器
 - !命令调用Shell，并执行命令
 - q 退出more
-- /字符串：代表在这个现实的内容当中，向下查找字符串这个关键词
+- /字符串：按enter开始向下查找字符串，而要重复查找一个字符串，直接按下n即可
 
 ### 2.5 less
 

@@ -44,12 +44,10 @@ halt
 lsblk 				block
 fdisk -l /dev/sda
 #查看内存大小
+free -hm
 cat /proc/meminfo
 #查看硬盘分区大小
 cat /proc/partitions
-#查看内存和交换分区
-free
-free -h
 ~~~
 
 ## 进制转换

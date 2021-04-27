@@ -35,13 +35,13 @@
 
 记录文件每次的更新，可以对每个版本做一个快照，或是记录补丁文件，适合个人用，如RCS。
 
- ![本地版本控制](GitPicture/本地版本控制.jpg)
+ ![本地版本控制](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E6%9C%AC%E5%9C%B0%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6.jpg?token=AP3ELAU6F74TVUXOWTR5VYDAQ3D7O)
 
 #### 1.3.2 集中版本控制  SVN
 
 所有的版本数据都保存在服务器上，协同开发者从服务器上同步更新或上传自己的修改
 
-![集中版本控制](GitPicture/%E9%9B%86%E4%B8%AD%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6.jpg)
+![集中版本控制](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E9%9B%86%E4%B8%AD%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6.jpg?token=AP3ELAR5TKFL2JGYONUDBKLAQ3D6K)
 
 所有的版本数据都存在服务器上，用户的本地只有自己以前所同步的版本，如果不连网的话，用户就看不到历史版本，也无法切换版本验证问题，或在不同分支工作。而且，所有数据都保存在单一的服务器上，有很大的风险这个服务器会损坏，这样就会丢失所有的数据，当然可以定期备份。代表产品：SVN、CVS、VSS
 
@@ -53,7 +53,7 @@
 
 不会因为服务器损坏或者网络问题，造成不能工作的情况！
 
-![分布式版本控制](GitPicture/%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6.jpg)
+![分布式版本控制](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6.jpg?token=AP3ELAXEG4TD42HAVB3VCZTAQ3D4Y)
 
 #### 1.3.4 Git与SVN的主要区别
 
@@ -109,7 +109,7 @@ git --global http.proxy "127.0.0.1:7890"
 git --global https.proxy "127.0.0.1:7890"
 ~~~
 
- ![环境配置](GitPicture/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.jpg)
+ ![环境配置](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.jpg?token=AP3ELAVEUEEDJO7HIG5YPFLAQ3D3K)
 
 ### 2.6 生成公钥
 
@@ -129,7 +129,7 @@ id_rsa.pub
 
 Git本地有三个工作区域：工作目录（Working Directory）、暂存区(Stage/Index)、资源库(Repository或Git Directory)。如果在加上远程的git仓库(Remote Directory)就可以分为四个工作区域。文件在这四个区域之间的转换关系如下：
 
- ![三个区域](GitPicture/%E4%B8%89%E4%B8%AA%E5%8C%BA%E5%9F%9F.jpg)
+ ![三个区域](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E4%B8%89%E4%B8%AA%E5%8C%BA%E5%9F%9F.jpg?token=AP3ELAVKZO5LHC4D5U6J3P3AQ3DX6)
 
 - Workspace：工作区，就是你平时存放项目代码的地方
 - Index / Stage：暂存区，用于临时存放你的改动，事实上它只是一个文件，保存即将提交到文件列表信息
@@ -154,7 +154,7 @@ Git本地有三个工作区域：工作目录（Working Directory）、暂存区
 
 git管理的文件有三种状态：已修改（modified）,已暂存（staged）,已提交(committed)
 
-![工作流程](GitPicture/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.jpg)
+![工作流程](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.jpg?token=AP3ELAT7B3EBAJFXL24ZVZDAQ3EDA)
 
 ## 4. Git项目搭建
 
@@ -231,7 +231,7 @@ doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 git log
 ~~~
 
- ![版本回退_log](GitPicture/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80_%E6%97%A5%E5%BF%97.jpg)
+ ![版本回退_log](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80_%E6%97%A5%E5%BF%97.jpg?token=AP3ELAWLELNJZJKEXAUESV3AQ3EEU)
 
 显示上一次版本提交的信息
 
@@ -457,11 +457,6 @@ git pull和git push也可能出现该错误，操作同上
 ## 说明 Git分支
 
 Git分支常用命令
-
-~~~shell
-
-
-~~~
 
 如果同一个文件在合并分支时都被修改了则会引起冲突：解决的办法是我们可以修改冲突文件后重新提交！选择要保留他的代码还是你的代码！
 
