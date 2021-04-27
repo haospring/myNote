@@ -8,12 +8,14 @@
 #使用alias
 alias cdnet="cd /etc/sysconfig/network-scripts"
 #将文件写进磁盘
-cd /root
+cd ~
 #只在本用户生效
 vim .bashrc
+
 #全部用户生效，不建议
 vim /etc/bashrc
 alias cdnet='cd /etc/sysconfig/networdk-scripts'
+
 #将文件写进磁盘后强制生效，免去重启
 source .bashrc
 ~~~
@@ -25,7 +27,6 @@ alias --- 内部 --- hash --- 外部
 unalias cdnet
 #查看所有别名
 alias
-
 ~~~
 
 ## 两天的指令
