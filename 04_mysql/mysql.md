@@ -574,11 +574,7 @@ select concat('java','面向对象'),concat('java',null,'面向对象');
 select concat_ws('$','java','面向对象'),concat_ws('*','java',null,'面向对象'),concat_ws('java',null,'面向对象');
 ~~~
 
-<<<<<<< HEAD
-![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/concat_ws.png)
-=======
 ![concat_ws](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/MysqlPicture/concat_ws.png?token=AP3ELAU3H5XFWSFB56PDVJDAQ6OHK)
->>>>>>> 5340007974e993b4a17320c147383d0d59706a82
 
   - insert(str1,s,len,str2)插入字符串
     - str1：原字符串
