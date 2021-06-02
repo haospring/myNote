@@ -41,7 +41,7 @@
 
 所有的版本数据都保存在服务器上，协同开发者从服务器上同步更新或上传自己的修改
 
-![集中版本控制](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E9%9B%86%E4%B8%AD%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6.jpg?token=AP3ELAR5TKFL2JGYONUDBKLAQ3D6K)
+ ![集中版本控制](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E9%9B%86%E4%B8%AD%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6.jpg?token=AP3ELAR5TKFL2JGYONUDBKLAQ3D6K)
 
 所有的版本数据都存在服务器上，用户的本地只有自己以前所同步的版本，如果不连网的话，用户就看不到历史版本，也无法切换版本验证问题，或在不同分支工作。而且，所有数据都保存在单一的服务器上，有很大的风险这个服务器会损坏，这样就会丢失所有的数据，当然可以定期备份。代表产品：SVN、CVS、VSS
 
@@ -53,7 +53,7 @@
 
 不会因为服务器损坏或者网络问题，造成不能工作的情况！
 
-![分布式版本控制](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6.jpg?token=AP3ELAXEG4TD42HAVB3VCZTAQ3D4Y)
+ ![分布式版本控制](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E5%88%86%E5%B8%83%E5%BC%8F%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6.jpg?token=AP3ELAXEG4TD42HAVB3VCZTAQ3D4Y)
 
 #### 1.3.4 Git与SVN的主要区别
 
@@ -77,7 +77,11 @@ Git是分布式版本控制系统，没有中央服务器，每个人的电脑�
 
 查看全部配置 git config -l
 
-查看系统配置 git config --system --list
+查看系统配置 git config --<strong style="color:red;">system </strong>--list
+
+查看全局配置 git config --global --list
+
+查看某一项配置 git config user.name
 
 查看当前用户（global）配置 git config --global -l
 
@@ -96,7 +100,7 @@ Git是分布式版本控制系统，没有中央服务器，每个人的电脑�
 当你安装Git后首先要做的事情是设置你的用户名称和e-mail地址。这是非常重要的，因为每次Git提交都会使用该信息。它被永远的嵌入到了你的提交中：
 
 ~~~she
-git config --global user.name "haospring"
+git config --user.name "haospring"
 git config --global user.eamil "haospring123@gmail.com"
 ~~~
 
@@ -127,7 +131,7 @@ id_rsa.pub
 
 ### 3.1 三个区域
 
-Git本地有三个工作区域：工作目录（Working Directory）、暂存区(Stage/Index)、资源库(Repository或Git Directory)。如果在加上远程的git仓库(Remote Directory)就可以分为四个工作区域。文件在这四个区域之间的转换关系如下：
+Git本地有三个工作区域：<strong style="color:red;">工作目录</strong>（Working Directory）、<strong style="color:red;">暂存区</strong>(Stage/Index)、<strong style="color:red;">资源库</strong>(Repository或Git Directory)。如果在加上远程的git仓库(Remote Directory)就可以分为四个工作区域。文件在这四个区域之间的转换关系如下：
 
  ![三个区域](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E4%B8%89%E4%B8%AA%E5%8C%BA%E5%9F%9F.jpg?token=AP3ELAVKZO5LHC4D5U6J3P3AQ3DX6)
 
