@@ -127,6 +127,12 @@ id_rsa.pub
 
 将生成的公钥配置到gitee或github上
 
+### 2.7 查看版本
+
+查看当前git版本 git version
+
+windows更新 git git update-git-for-windows
+
 ## 3. Git基本理论
 
 ### 3.1 三个区域
@@ -164,21 +170,30 @@ git管理的文件有三种状态：已修改（modified）,已暂存（staged�
 
 ### 4.1 本地仓库搭建
 
-创建本地仓库的方法有两种：一种是创建全新的仓库，另一种是克隆远程仓库。
-
-1. 创建全新的仓库，需要用GIT管理的项目的根目录执行：
+- 创建全新的仓库，需要用GIT管理的项目的根目录执行：
 
 ```shell
-# 在当前目录新建一个Git代码库
-$ git init
+# 本地新建目录
+mkdir test
+# 进入目录
+cd ./test
+# 初始化仓库
+git init
 ```
 
-2. 执行后可以看到，仅仅在项目目录多出了一个.git目录，关于版本等的所有信息都在这个目录里面。
+- 执行后可以看到，仅仅在项目目录多出了一个.git目录，关于版本等的所有信息都在这个目录里面。
 
 ### 4.2 克隆远程仓库
 
 ~~~shell
 git clone [url]
+git clone git@github.com:haospring/myNote.git
+~~~
+
+克隆远程仓库时可以自定义本地仓库的名字
+
+~~~shell
+git clone git@github.com:haospring/myNote.git myNote2
 ~~~
 
 ## 5. Git文件操作
@@ -192,6 +207,8 @@ git clone [url]
 - Modified: 文件已修改, 仅仅是修改, 并没有进行其他的操作. 这个文件也有两个去处, 通过git add可进入暂存staged状态, 使用git checkout 则丢弃修改过, 返回到unmodify状态, 这个git checkout即从库中取出文件, 覆盖当前修改 !
 - Staged: 暂存状态. 执行git commit则将修改同步到库中, 这时库中的文件和本地文件又变为一致, 文件为Unmodify状态. 执行git reset HEAD filename取消暂存, 文件状态为Modified
 
+#### 5.1.1 git status
+
 ~~~shell
 # 查看文件的状态
 git status
@@ -203,6 +220,104 @@ git commit -m "message"
 # 将本地dev分支推送到远程仓库的dev分支
 git push origin dev
 ~~~
+
+以简短的方式查看文件状态
+
+~~~shell
+git status -s
+git status --short
+~~~
+
+ ![image-20210602211559308](D:\File\MyGit\MyGithub\myNote\10_git\Git.assets\image-20210602211559308.png)
+
+#### 5.1.2 git diff
+
+`git diff` 本身只显示尚未暂存的改动，而不是自上次提交以来所做的所有改动。
+
+`git diff --staged` 和 `git diff -cached` 显示已暂存的修改
+
+~~~shell
+# 显示工作区和暂存区的区别
+git diff
+# 显示暂存区和上一次提交的区别
+git diff --cached
+git diff --staged
+# 查看已暂存和未暂存的所有改动
+git diff HEAD
+~~~
+
+![image-20210606101029736](Git.assets/image-20210606101029736.png)
+
+- **第一行表示结果为git格式的diff** 
+
+  `diff --git a/README.md b/README.md` 进行比较的是,a版本的README.md(即变动前)和b版本的README.md(即变动后)。
+
+- **第二行表示两个版本的git哈希值和最后的六位数字是对象的模式**
+
+  `index 794412d..d51ea75 100644`
+
+  暂存区的794412d对象,与工作区的d51ea75 对象进行比较。`100`代表普通文件，`644`代表文件具有的权限（同linux文件权限）
+
+- **第三四行表示进行比较的两个文件**
+
+  `--- a/README.md`
+  `+++ b/README.md`
+
+   "---"表示变动前的版本，"+++"表示变动后的版本。
+
+- **第五行表示代码变动的位置用两个@作为起首和结束**
+
+  `@@ -1,3 +1,6 @@`
+
+  "-1,3″分成三个部分：减号表示第一个文件，"1″表示第1行，"3″表示连续3行。 合在一起，就表示下面是第一个文件从第1行开始的连续3行。
+
+  "+1,7″表示变动后，成为第二个文件从第1行开始的连续7行。
+
+  合在一起表示由第一个文件的1-3行变成第二个文件的1-7行
+
+- **第三部分是变动的具体内容**
+
+  `# 笔记` 表示没有修改的内容
+  <strong style="color:red;">`-test`</strong> 表示第一个文件删除的行
+  <strong style="color:green;">`+将这一行的内容由test修改为描述`</strong> 表示第二个文件新增的行
+  ` test2`
+  <strong style="color:green;">`+test3`</strong>
+  <strong style="color:green;">`+test4`</strong>
+  <strong style="color:green;">`+test5`</strong>
+
+![image-20210606103208616](Git.assets/image-20210606103208616.png)
+
+#### 5.1.3 git commit
+
+提交文件前需要先使用 `git add <filename>` 将文件添加到暂存区
+
+可以通过 `git commit -a` 跳过使用暂存区，Git会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 `git add <filename>` 步骤
+
+#### 5.1.4 git rm
+
+要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。
+
+~~~shell
+# 使用 git rm 删除文件
+git rm test.txt
+git commit -m "测试git rm"
+# 使用 rm 删除文件，需要添加到暂存区并提交
+rm test.txt
+git add .
+git commit -m "删除test.txt文件"
+# 删除暂存区文件，但是不删除本地文件，本地文件变成未跟踪状态
+git rm --cached test.txt
+~~~
+
+#### 5.1.5 git mv
+
+相当于运行一下三条命令
+
+`mv test.txt test2.txt`
+
+`git rm test.txt`
+
+`git add test2.txt`
 
 ### 5.2 忽略文件
 
@@ -218,12 +333,31 @@ git push origin dev
 
 ~~~shell
 #为注释
-*.txt        #忽略所有 .txt结尾的文件,这样的话上传就不会被选中！
+*.txt        #忽略所有.txt结尾的文件,这样的话上传就不会被选中！
 !lib.txt     #但lib.txt除外
-/temp        #仅忽略项目根目录下的TODO文件,不包括其它目录temp
-build/       #忽略build/目录下的所有文件
+/TODO        #只忽略当前目录下的TODO文件,不忽略subdir/TODO
+build/       #忽略任何目录下名为 build 的文件夹
 doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
+doc/**/*.pdf #忽略doc/目录及其子目录下的.pdf文件
 ~~~
+
+### 5.3 获取帮助
+
+方式一：git help <verb>
+
+`git help add`
+
+`git help branch`
+
+方式二：git <verb> --help
+
+`git config --help`
+
+方式三：git <verb>  -h
+
+`git add -h`
+
+ ![image-20210602200828392](D:\File\MyGit\MyGithub\myNote\10_git\Git.assets\image-20210602200828392.png)
 
 ## 6. 版本回退
 
