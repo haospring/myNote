@@ -75,6 +75,8 @@ Git是分布式版本控制系统，没有中央服务器，每个人的电脑�
 
 所有的配置文件，其实都保存在本地！
 
+`.gitconfig`, `.config/git`
+
 查看全部配置 git config -l
 
 查看系统配置 git config --<strong style="color:red;">system </strong>--list
@@ -91,7 +93,9 @@ Git是分布式版本控制系统，没有中央服务器，每个人的电脑�
 
 2）C:\Users\14727\ .gitconfig   只适用于当前登录用户的配置（只有配置过global，该文件才会出现）  --global 全局
 
-3）这里可以直接编辑配置文件，通过命令设置后会响应到这里。
+3）Ubuntu下，配置文件在`/home/haospring/.gitconfig`
+
+4）这里可以直接编辑配置文件，通过命令设置后会响应到这里。
 
 ### 2.4 设置用户名与邮箱
 
@@ -115,21 +119,38 @@ git --global https.proxy "127.0.0.1:7890"
 
  ![环境配置](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.jpg?token=AP3ELAVEUEEDJO7HIG5YPFLAQ3D3K)
 
-### 2.6 生成公钥
+### 2.6 配置编辑器
 
-在C:\Users\14727\ .ssh下生成公钥，如果没有.ssh文件夹，可以手动创建
+git在Linux上的默认编辑器是nano，可通过修改.gitconfig文件来修改默认编辑器，也可通过命令行修改
+
+~~~shell
+Linux：git config --global core.editor vim
+Windoes：git config --global core.editor path
+~~~
+
+### 2.7 Ubuntu设置git为英文
+
+```
+echo "alias git='LANG=en_GB git'" >> ~/.bashrc
+```
+
+### 2.8 生成公钥
+
+Windows：在C:\Users\14727\ .ssh下生成公钥，如果没有.ssh文件夹，可以手动创建
+
+Linux：`/home/haospring/.ssh`
 
 ~~~shell
 ssh-keygen -t rsa
 ~~~
 
-id_rsa.pub
+输入命令后一路回车即可在上述目录中创建`id_rsa.pub`
 
-将生成的公钥配置到gitee或github上
+将文件中的内容配置到gitee或github上
 
-### 2.7 查看版本
+### 2.9 查看版本
 
-查看当前git版本 git version
+查看当前git版本 git --version
 
 windows更新 git git update-git-for-windows
 
@@ -162,7 +183,7 @@ Git本地有三个工作区域：<strong style="color:red;">工作目录</strong
 2. 将需要进行版本管理的文件放入暂存区域；
 3. 将暂存区域的文件提交到git仓库。
 
-git管理的文件有三种状态：已修改（modified）,已暂存（staged）,已提交(committed)
+git管理的文件有三种状态：已修改（modified），已暂存（staged），已提交(committed)
 
 ![工作流程](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B.jpg?token=AP3ELAT7B3EBAJFXL24ZVZDAQ3EDA)
 
@@ -182,6 +203,13 @@ git init
 ```
 
 - 执行后可以看到，仅仅在项目目录多出了一个.git目录，关于版本等的所有信息都在这个目录里面。
+- 配置`.gitignore`文件，格式规范如下
+  - 所有空行或者以 # 开头的行都会被 Git 忽略。 
+  - 可以使用标准的 glob 模式匹配，它会递归地应用在整个工作区中。 
+  - 匹配模式可以以（/）开头防止递归。
+  - 匹配模式可以以（/）结尾指定目录。
+  - 要忽略指定模式以外的文件或目录，可以在模式前加上叹号（!）取反。
+- .gitigonre [模板](https://github.com/github/gitignore)
 
 ### 4.2 克隆远程仓库
 
@@ -202,10 +230,10 @@ git clone git@github.com:haospring/myNote.git myNote2
 
 版本控制就是对文件的版本控制，要对文件进行修改、提交等操作，首先要知道文件当前在什么状态，不然可能会提交了现在还不想提交的文件，或者要提交的文件没提交上。
 
-- Untracked: 未跟踪, 此文件在文件夹中, 但并没有加入到git库, 不参与版本控制. 通过git add 状态变为Staged.
-- Unmodify: 文件已经入库, 未修改, 即版本库中的文件快照内容与文件夹中完全一致. 这种类型的文件有两种去处, 如果它被修改, 而变为Modified. 如果使用git rm移出版本库, 则成为Untracked文件
-- Modified: 文件已修改, 仅仅是修改, 并没有进行其他的操作. 这个文件也有两个去处, 通过git add可进入暂存staged状态, 使用git checkout 则丢弃修改过, 返回到unmodify状态, 这个git checkout即从库中取出文件, 覆盖当前修改 !
-- Staged: 暂存状态. 执行git commit则将修改同步到库中, 这时库中的文件和本地文件又变为一致, 文件为Unmodify状态. 执行git reset HEAD filename取消暂存, 文件状态为Modified
+- Committed: 已提交，即版本库中的文件快照内容与文件夹中完全一致。这种类型的文件有两种去处，如果它被修改，而变为Modified。如果使用git rm移出版本库， 则成为Untracked文件
+- Staged: 暂存状态。执行git commit则将修改同步到库中，这时库中的文件和本地文件又变为一致。执行`git restore --staged filename`取消暂存，文件恢复到Modified状态
+- Modified: 已修改，处于版本控制中的文件被修改，并没有进行其他的操作。通过git add可进入暂存staged状态
+- Untracked: 未跟踪，此文件在文件夹中，但并没有加入到git库，不参与版本控制。通过git add 状态变为Staged
 
 #### 5.1.1 git status
 
@@ -228,13 +256,11 @@ git status -s
 git status --short
 ~~~
 
- ![image-20210602211559308](D:\File\MyGit\MyGithub\myNote\10_git\Git.assets\image-20210602211559308.png)
-
 #### 5.1.2 git diff
 
-`git diff` 本身只显示尚未暂存的改动，而不是自上次提交以来所做的所有改动。
+`git diff` 此命令比较的是工作目录中当前文件和暂存区域快照之间的差异。 也就是修改之后还没有暂存起来的变化内容。
 
-`git diff --staged` 和 `git diff -cached` 显示已暂存的修改
+`git diff --staged` 和 `git diff -cached` 这条命令将比对已暂存文件与最后一次提交的文件差异
 
 ~~~shell
 # 显示工作区和暂存区的区别
@@ -246,17 +272,17 @@ git diff --staged
 git diff HEAD
 ~~~
 
-![image-20210606101029736](Git.assets/image-20210606101029736.png)
+ ![image-20210606101029736](Git.assets/image-20210606101029736.png)
 
 - **第一行表示结果为git格式的diff** 
 
-  `diff --git a/README.md b/README.md` 进行比较的是,a版本的README.md(即变动前)和b版本的README.md(即变动后)。
+  `diff --git a/README.md b/README.md` 进行比较的是，a版本的README.md(即变动前)和b版本的README.md(即变动后)。
 
 - **第二行表示两个版本的git哈希值和最后的六位数字是对象的模式**
 
   `index 794412d..d51ea75 100644`
 
-  暂存区的794412d对象,与工作区的d51ea75 对象进行比较。`100`代表普通文件，`644`代表文件具有的权限（同linux文件权限）
+  暂存区的794412d对象，与工作区的d51ea75 对象进行比较。`100`代表普通文件，`644`代表文件具有的权限（同linux文件权限）
 
 - **第三四行表示进行比较的两个文件**
 
@@ -265,15 +291,15 @@ git diff HEAD
 
    "---"表示变动前的版本，"+++"表示变动后的版本。
 
-- **第五行表示代码变动的位置用两个@作为起首和结束**
+- **第五行表示代码变动的位置，用两个@作为起首和结束**
 
   `@@ -1,3 +1,6 @@`
 
   "-1,3″分成三个部分：减号表示第一个文件，"1″表示第1行，"3″表示连续3行。 合在一起，就表示下面是第一个文件从第1行开始的连续3行。
 
-  "+1,7″表示变动后，成为第二个文件从第1行开始的连续7行。
+  "+1,6″表示变动后，成为第二个文件从第1行开始的连续6行。
 
-  合在一起表示由第一个文件的1-3行变成第二个文件的1-7行
+  合在一起表示由第一个文件的1-3行变成第二个文件的1-6行
 
 - **第三部分是变动的具体内容**
 
@@ -285,7 +311,24 @@ git diff HEAD
   <strong style="color:green;">`+test4`</strong>
   <strong style="color:green;">`+test5`</strong>
 
-![image-20210606103208616](Git.assets/image-20210606103208616.png)
+ ![image-20210606103208616](Git.assets/image-20210606103208616.png)
+
+**git diff 中文乱码**
+
+如果包含中文的文件使用 gbk2312 进行编码，`git diff`、`git log`、`git show` 等命令的输出结果会出现中文乱码。因为这些命令默认使用 `less` 进行分页，而`less` 无法识别 gbk2312 的编码格式，需要bash对 `less` 进行 utf-8 编码
+
+~~~shell
+# 只能当前终端生效，关闭终端重开则还是乱码
+export LESSCHARSET=utf-8
+# 需要写入.profile配置文件
+echo "export LESSCHARSET=utf-8" >> ~/.profile
+# 修改配置文件后刷新该文件，让配置立即生效
+source ~/.profile
+~~~
+
+[参考链接](https://www.jianshu.com/p/fc8162ed1e3d)
+
+[参考链接](https://blog.csdn.net/bingyu9875/article/details/88196929)
 
 #### 5.1.3 git commit
 
@@ -333,9 +376,9 @@ git rm --cached test.txt
 
 ~~~shell
 #为注释
-*.txt        #忽略所有.txt结尾的文件,这样的话上传就不会被选中！
+*.txt        #忽略所有.txt结尾的文件，这样的话上传就不会被选中！
 !lib.txt     #但lib.txt除外
-/TODO        #只忽略当前目录下的TODO文件,不忽略subdir/TODO
+/TODO        #只忽略当前目录下的TODO文件，不忽略subdir/TODO
 build/       #忽略任何目录下名为 build 的文件夹
 doc/*.txt    #会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
 doc/**/*.pdf #忽略doc/目录及其子目录下的.pdf文件
@@ -357,13 +400,11 @@ doc/**/*.pdf #忽略doc/目录及其子目录下的.pdf文件
 
 `git add -h`
 
- ![image-20210602200828392](D:\File\MyGit\MyGithub\myNote\10_git\Git.assets\image-20210602200828392.png)
-
 ## 6. 版本回退
 
 ### 6.1 历史记录
 
-查看历史修改记录，及每次修改提交的信息
+不传入任何参数的默认情况下，`git log` 会按时间先后顺序列出所有的提交，最近的更新排在最上面。这个命令会列出每个提交的 SHA-1 校验和、作者的名字和电子邮件地址、提交时间以及提交说明。
 
 ~~~shell
 git log
@@ -371,11 +412,13 @@ git log
 
  ![版本回退_log](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E7%89%88%E6%9C%AC%E5%9B%9E%E9%80%80_%E6%97%A5%E5%BF%97.jpg?token=AP3ELAWLELNJZJKEXAUESV3AQ3EEU)
 
-显示上一次版本提交的信息
+显示上一次版本提交的信息，只显示一行
 
 ~~~shell
 git log --pretty=oneline
 ~~~
+
+ ![git log --pretty=oneline](Git.assets/git log --pretty=oneline.png)
 
 版本回退
 
@@ -410,18 +453,92 @@ git reflog
 git diff HEAD -- readme.txt
 ~~~
 
-### 6.2 撤销修改
+#### 6.1.1 git log --patch
 
-放弃工作区的修改,让这个文件回到最近一次`git commit`或`git add`时的状态
+`-p` 或 `--patch` ，它会显示每次提交所引入的差异（按 **补丁** 的格式输出）。 
+
+可以限制显示的日志条目数量，例如使用 `-2` 选项来只显示最近的两次提交。
+
+该选项除了显示基本信息之外，还附带了每次提交的变化。
 
 ~~~shell
-git checkout -- <file>
+git log --patch -2
+git log -p -2
+~~~
+
+ ![image-20210607101912571](Git.assets/image-20210607101912571.png)
+
+#### 6.1.2 git log --stat
+
+想看到每次提交的简略统计信息，可以使用 `--stat` 选项
+
+`--stat` 选项在每次提交的下面列出所有被修改过的文件、有多少文件被修改了以及被修改过的文件的哪些行被移除或是添加了。 在每次提交的最后还有一个总结。
+
+~~~shell
+git log --stat -3
+~~~
+
+ ![image-20210607102505560](Git.assets/image-20210607102505560.png)
+
+#### 6.1.3 git log --pretty
+
+`--pretty`，这个选项可以使用不同于默认格式的方式展示提交历史。 
+
+这个选项有一些内建的子选项供你使用。 比如 `oneline` 会将每个提交放在一行显示，在浏览大量的提交时非常有用。 
+
+另外还有 `short`，`full` 和 `fuller` 选项，它们展示信息的格式基本一致，但是详尽程度不一
+
+ ![image-20210607103040341](Git.assets/image-20210607103040341.png)
+
+#### 6.1.4 git log --graph
+
+在日志旁以 ASCII 图形显示分支与合并历史。
+
+可以搭配`--pretty=oneline`或`--pretty=format`使用。
+
+~~~shell
+git log --pretty=oneline --graph
+~~~
+
+ ![image-20210607104049840](Git.assets/image-20210607104049840.png)
+
+#### 6.1.5 限制输出长度
+
+| 选项                  | 说明                                       |
+| :-------------------- | :----------------------------------------- |
+| `-<n>`                | 仅显示最近的 n 条提交。                    |
+| `--since`, `--after`  | 仅显示指定时间之后的提交。                 |
+| `--until`, `--before` | 仅显示指定时间之前的提交。                 |
+| `--author`            | 仅显示作者匹配指定字符串的提交。           |
+| `--committer`         | 仅显示提交者匹配指定字符串的提交。         |
+| `--grep`              | 仅显示提交说明中包含指定字符串的提交。     |
+| `-S`                  | 仅显示添加或删除内容匹配指定字符串的提交。 |
+
+~~~shell
+git log --since=2.weeks
+git log --since=2021-05-06
+git log --grep=修改
+git log --author=ha
+~~~
+
+### 6.2 撤销修改
+
+有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 --amend 选 项的提交命令来重新提交：
+
+~~~shell
+git commit --amend
+~~~
+
+放弃工作区的修改，让这个文件回到最近一次`git commit`或`git add`时的状态
+
+~~~shell
+git restore <file>
 ~~~
 
 修改只是添加到了暂存区，还没有提交，撤销修改，重新放回工作区
 
 ~~~shell
-git reset HEAD <file>
+git restore --staged <file>
 ~~~
 
 从暂存区提交到了版本库，还没有把自己的本地版本库推送到远程，回退到上一个版本
@@ -461,15 +578,18 @@ git remote add origin git@github.com:haospring/LearnGit
 git remote -v
 ~~~
 
+ ![查看本地仓库的远程仓库信息](Git.assets/git remote -v.png)
+
 3. 删除已有的远程库
 
 ~~~shell
 git remote rm origin
 ~~~
 
-2. 将本地仓库内容推送到远程仓库，首次提交加上-u，需要指定本地分支
+4. 将本地仓库内容推送到远程仓库，首次提交加上-u，需要指定本地分支
 
 ~~~shell
+# git push <remote> <branch>
 git push -u origin main
 ~~~
 
