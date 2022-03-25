@@ -6,6 +6,8 @@
 
 #### 环境配置
 
+##### 下载链接
+
 [apktool: https://ibotpeaches.github.io/Apktool/](https://ibotpeaches.github.io/Apktool/)
 
 [dex2jar: https://sourceforge.net/projects/dex2jar/](https://sourceforge.net/projects/dex2jar/)
@@ -31,7 +33,7 @@ sudo chmod a+x apktool.jar
 ##### 安装 dex2jar
 
 1. 下载最新版 dex2jar-2.0.zip 并解压
-2. 给 d2j-dex2jar.sh 设置可执行权限
+2. 给 d2j-dex2jar.sh 设置可执行权限（Linux）
 
 ~~~shell
 sudo chmod a+x d2j-dex2jar.sh
