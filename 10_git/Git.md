@@ -125,12 +125,12 @@ git在Linux上的默认编辑器是nano，可通过修改.gitconfig文件来修�
 
 ~~~shell
 Linux：git config --global core.editor vim
-Windoes：git config --global core.editor path
+Windows：git config --global core.editor path
 ~~~
 
 ### 2.7 Ubuntu设置git为英文
 
-```
+```shell
 echo "alias git='LANG=en_GB git'" >> ~/.bashrc
 ```
 
@@ -326,9 +326,17 @@ echo "export LESSCHARSET=utf-8" >> ~/.profile
 source ~/.profile
 ~~~
 
+**git status 中文乱码**
+
+~~~shell
+git config --global core.quotepath false
+~~~
+
 [参考链接](https://www.jianshu.com/p/fc8162ed1e3d)
 
 [参考链接](https://blog.csdn.net/bingyu9875/article/details/88196929)
+
+[参考链接](https://blog.csdn.net/u012145252/article/details/81775362)
 
 #### 5.1.3 git commit
 
