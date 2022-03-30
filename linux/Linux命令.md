@@ -4,7 +4,7 @@
 
 所有用户都能直接使用命令，是因为在PATH中将命令所在的目录进行配置
 
-![path](https://raw.githubusercontent.com/haospring/MyPictures/main/image/path.jpg)
+ ![path](https://raw.githubusercontent.com/haospring/MyPictures/main/image/path.jpg)
 
 如果要把/root目录配置到PATH中，可以通过
 
@@ -196,7 +196,7 @@ touch "program file"
 
 查看文件的修改、读取、建立时间，默认情况下ls显示的是文件的mtime（上次修改的时间）
 
-![建立时间](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E6%96%87%E4%BB%B6%E5%BB%BA%E7%AB%8B%E6%97%B6%E9%97%B4.jpg)
+ ![建立时间](https://raw.githubusercontent.com/haospring/MyPictures/main/image/%E6%96%87%E4%BB%B6%E5%BB%BA%E7%AB%8B%E6%97%B6%E9%97%B4.jpg)
 
 ### 2.2 echo
 
@@ -432,7 +432,7 @@ od -t oCc /etc/issue
 echo password | od -t oCc
 ~~~
 
-![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/od.jpg)
+ ![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/od.jpg)
 
 ## 三、查找命令
 
@@ -995,7 +995,7 @@ chown haospring:test HelloWorld.java
 
 #### 9.7.1 SUID
 
-![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/SUID.jpg)
+ ![](https://raw.githubusercontent.com/haospring/MyPictures/main/image/SUID.jpg)
 
 当**文件拥有者的x位**上是s时，代表SUID的权限（Set UID），可**暂时**获得root的权限，只能用在**二进制程序**上，对目录和shell脚本无效
 
@@ -1010,7 +1010,7 @@ chown haospring:test HelloWorld.java
 
 当**文件用户组的x位上**是s时，代表SGUID的权限（Set GID）
 
-![SGUID](https://raw.githubusercontent.com/haospring/MyPictures/main/image/SGID.jpg)
+ ![SGUID](https://raw.githubusercontent.com/haospring/MyPictures/main/image/SGID.jpg)
 
 当文件具有SGID的权限时，可以获得文件所属组的权限，SGID在目录上也有效
 
