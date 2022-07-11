@@ -62,7 +62,7 @@ actionBar.show();
 
 ~~~xml
 android:id="@+id/menu_favorite"
-<!-- 当item在应用栏时，显示图标，当item在已出拦时，显示文字 -->
+<!-- 当item在应用栏时，显示图标，当item在溢出栏时，显示文字 -->
 android:icon="@drawable/heart"
 android:title="love"
 <!-- 
