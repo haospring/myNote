@@ -104,7 +104,7 @@ Git是分布式版本控制系统，没有中央服务器，每个人的电脑�
 当你安装Git后首先要做的事情是设置你的用户名称和e-mail地址。这是非常重要的，因为每次Git提交都会使用该信息。它被永远的嵌入到了你的提交中：
 
 ~~~she
-git config --user.name "haospring"
+git config --global user.name "haospring"
 git config --global user.eamil "haospring123@gmail.com"
 ~~~
 
