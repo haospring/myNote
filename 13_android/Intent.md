@@ -24,6 +24,59 @@ startActivity(intent);
 intent.addCategory("com.thundersoft.testnofification.mycategory");
 ~~~
 
+*note：要想对一个Activity进行隐式启动，必须给Activity设置默认的Categroy，否则会匹配失败*
+可以通过PackageManager的resolveActivity(Intent，flag) 方法判断符合匹配规则的Activity是否存在
+
+~~~java
+Intent intent = new Intent();
+intent.setAction("com.haospring.test.SecondActivity");
+intent.addCategory("com.haospring.test.SecondActivity.Category");
+// android 7.0 之后文件匹配只能使用 content，不能使用 file
+intent.setDataAndType(Uri.parse("content://abc"), "text/plain");
+
+ResolveInfo resolveInfo = getPackageManager().resolveActivity(nextIntent, PackageManager.MATCH_DEFAULT_ONLY);
+if (resolveInfo != null) {
+    startActivity(intent);
+}
+~~~
+
+~~~xml
+<activity
+          android:name=".SecondActivity"
+          android:exported="false"
+          android:taskAffinity="com.haospring"
+          android:launchMode="singleTask">
+    <intent-filter>
+        <action android:name="com.haospring.test.SecondActivity" />
+
+        <category android:name="com.haospring.test.SecondActivity.Category" />
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data
+              android:mimeType="text/plain"
+              android:scheme="content" />
+    </intent-filter>
+
+    <intent-filter tools:ignore="AppLinkUrlError">
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:scheme="http" />
+    </intent-filter>
+</activity>
+~~~
+
+~~~java
+Intent intent = new Intent();
+intent.setAction(Intent.ACTION_VIEW);
+intent.addCategory(Intent.CATEGORY_DEFAULT);
+intent.setData(URI.parse("http://www.baidu.com"));
+startActivity(intent);
+~~~
+
+因为上面的 Intent 的过滤规则既匹配 SecondActivity，由匹配手机浏览器的 Activity，所以会打开两个Activity可以让用户选择，但是 SecondActivity 是没有打开网页的能力的。
+
+ ![image_intent](Intent.assets/image-20220724140939495.png)
+
 ### 隐式启动 Service
 
 ~~~java
