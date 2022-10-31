@@ -42,7 +42,7 @@ sudo chmod a+x d2j-dex2jar.sh
 ~~~
 
 3. 将 app 后缀改为 zip 格式，解压得到 classes.dex 文件，将 classes. dex 文件复制到 dex2jar-2.0 目录下
-4. 执行 `./dex2jar-2.0` ，可能会出现以下错误
+4. 执行 `./d2j-dex2jar` ，可能会出现以下错误
 
  ![dex2jar报错](ubuntu20%E5%8F%8D%E7%BC%96%E8%AF%91apk.assets/dex2jar%E6%8A%A5%E9%94%99.png)
 
