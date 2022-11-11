@@ -79,7 +79,6 @@
 
   - 查看应用包名
 
-
   ~~~shell
   adb shell pm list packages
   adb shell pm list packages | grep com.haospring*
@@ -206,19 +205,18 @@
   adb shell dumpsys cpuinfo
   ~~~
 
+  - 查看 cpu 实时运行情况
+
+  ~~~shell
+  adb shell top
+  ~~~
+
   - 查看内存使用情况
 
   ~~~shell
   adb shell dumpsys meminfo
   ~~~
 
-  - 
-
-  
-
-  
-
-  
 
 
 [参考链接：ADB常用命令及其用法大全](https://blog.csdn.net/qq_39969226/article/details/87897863)

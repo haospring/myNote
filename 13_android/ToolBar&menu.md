@@ -54,7 +54,6 @@ actionBar.show();
         android:icon="@drawable/add"
         android:title="add"
         app:showAsAction="never" />
-
 </menu>
 ~~~
 
