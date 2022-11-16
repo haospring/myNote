@@ -113,11 +113,18 @@ git config --global user.eamil "haospring123@gmail.com"
 ### 2.5 配置代理
 
 ~~~shell
-git --global http.proxy "127.0.0.1:7890"
-git --global https.proxy "127.0.0.1:7890"
+git config --global https.proxy "socks5://127.0.0.1:7890"
+git config --global http.proxy "socks5://127.0.0.1:7890"
+
+git config --global https.proxy "https://127.0.0.1:7890"
+git config --global http.proxy "http://127.0.0.1:7890"
 ~~~
 
- ![环境配置](https://raw.githubusercontent.com/haospring/MyPictures/main/myNote/GitPicture/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.jpg?token=AP3ELAVEUEEDJO7HIG5YPFLAQ3D3K)
+
+
+ ![image-20221116210830509](./Git.assets/image-20221116210830509.png)
+
+[参考链接](https://gist.github.com/laispace/666dd7b27e9116faece6)
 
 ### 2.6 配置编辑器
 
@@ -571,6 +578,14 @@ git restore hello.txt
 ~~~
 
 ## 7. 远程仓库
+
+### 7.1 判断是否成功连接 github
+
+~~~shell
+ssh -T git@github.com
+~~~
+
+ ![image-20221116211145003](./Git.assets/image-20221116211145003.png)
 
 可以添加多个远程仓库，github仓库和gitee仓库同时关联本地，要起不同的远程名
 
