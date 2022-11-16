@@ -1,12 +1,12 @@
 ## Intent
 
-### 启动 Activity 报异常
+### 隐式启动 Activity 报异常
 
 *android.content.ActivityNotFoundException: No Activity found to handle Intent { act=com.thundersoft.testnotification.activity.SecondActivity }*
 
 ~~~java
 Intent intent = new Intent();
-intent.setAction("com.thundersoft.testnotification.activity.SecondActivity");
+intent.setAction("com.hcs.testnotification.activity.SecondActivity");
 startActivity(intent);
 ~~~
 
@@ -17,39 +17,54 @@ startActivity(intent);
 <category android:name="android.intent.category.DEFAULT" />
 
 <!-- 如果设置的 category 为自定义的，则需要在设置 intent 的 category -->
-<category android:name="com.thundersoft.testnofification.mycategory" />
+<category android:name="com.hcs.testnofification.mycategory" />
 ~~~
 
 ~~~java
-intent.addCategory("com.thundersoft.testnofification.mycategory");
+intent.addCategory("com.hcs.testnofification.mycategory");
 ~~~
 
 *note：要想对一个Activity进行隐式启动，必须给Activity设置默认的Categroy，否则会匹配失败*
-可以通过PackageManager的resolveActivity(Intent，flag) 方法判断符合匹配规则的Activity是否存在
+可以通过 PackageManager 或者 Intent 的resolveActivity(Intent，flag) 方法判断符合匹配规则的Activity是否存在
 
 ~~~java
 Intent intent = new Intent();
-intent.setAction("com.haospring.test.SecondActivity");
-intent.addCategory("com.haospring.test.SecondActivity.Category");
+intent.setAction("com.hcs.test.SecondActivity");
+intent.addCategory("com.hcs.test.SecondActivity.Category");
 // android 7.0 之后文件匹配只能使用 content，不能使用 file
 intent.setDataAndType(Uri.parse("content://abc"), "text/plain");
 
+// MATCH_DEFAULT_ONLY 只匹配含有默认 category 的 activity，防止隐式启动失败
 ResolveInfo resolveInfo = getPackageManager().resolveActivity(nextIntent, PackageManager.MATCH_DEFAULT_ONLY);
 if (resolveInfo != null) {
     startActivity(intent);
 }
 ~~~
 
+Android 11 之后需要在 AndroidManifest 中设置queries标签，设置查找包名，否则可能查找不到对应的包名
+
+```xml
+<queries>
+    <intent>
+        <action android:name="android.os.storage.action.MANAGE_STORAGE" />
+    </intent>
+
+    <intent>
+        <action android:name="android.settings.APPLICATION_DETAILS_SETTINGS" />
+    </intent>
+</queries>
+```
+
 ~~~xml
 <activity
           android:name=".SecondActivity"
           android:exported="false"
-          android:taskAffinity="com.haospring"
+          android:taskAffinity="com.hcs"
           android:launchMode="singleTask">
     <intent-filter>
-        <action android:name="com.haospring.test.SecondActivity" />
+        <action android:name="com.hcs.test.SecondActivity" />
 
-        <category android:name="com.haospring.test.SecondActivity.Category" />
+        <category android:name="com.hcs.test.SecondActivity.Category" />
         <category android:name="android.intent.category.DEFAULT" />
 
         <data
@@ -65,6 +80,8 @@ if (resolveInfo != null) {
 </activity>
 ~~~
 
+启动浏览器与上面 SecondActivity 的 Activity
+
 ~~~java
 Intent intent = new Intent();
 intent.setAction(Intent.ACTION_VIEW);
@@ -73,7 +90,7 @@ intent.setData(URI.parse("http://www.baidu.com"));
 startActivity(intent);
 ~~~
 
-因为上面的 Intent 的过滤规则既匹配 SecondActivity，由匹配手机浏览器的 Activity，所以会打开两个Activity可以让用户选择，但是 SecondActivity 是没有打开网页的能力的。
+因为上面的 Intent 的过滤规则既匹配 SecondActivity，又匹配手机浏览器的 Activity，所以会打开两个Activity可以让用户选择，但是 SecondActivity 是没有打开网页的能力的。
 
  ![image_intent](Intent.assets/image-20220724140939495.png)
 
@@ -81,20 +98,22 @@ startActivity(intent);
 
 ~~~java
 Intent intent = new Intent();
-intent.setAction("com.thundersoft.testnotification.service.TestForegroundService");
-intent.setPackage("com.thundersoft.testnotification");
+intent.setAction("com.hcs.testnotification.service.TestForegroundService");
+intent.setPackage("com.hcs.testnotification");
 startService(intent);
 ~~~
 
 隐式启动 Service 必须指定包名
 
-包名是组件的包名，不是 Service 类的包名，不是 `com.thundersoft.testnotification.service`
+包名是组件的包名，不是 Service 类的包名，不是 `com.hcs.testnotification.service`
+
+`tips：推荐使用显示启动 Service`
 
 ###　Intent 的属性
 
 ComponentName，Action，Category，Data，Type，Extra，Flags
 
-#### Flags: 
+#### Flags
 
 Intent.FLAG_ACTIVITY_CLEAR_TOP：类似于 activity 的 launchMode 为 singleTask
 
@@ -102,7 +121,7 @@ Intent.FLAG_ACTIVITY_SINGLE_TOP：singleTop
 
 Intent.FLAG_ACTIVITY_NEW_TASK：singleInstance
 
-**e.g. 依次启动A 、B、C、D，然后从 D 跳转到 B，同时希望 C、D都finish掉**
+`e.g. 依次启动A、B、C、D，然后从 D 跳转到 B，同时希望 C、D都finish掉`
 
 方式一：Intent 设置 Flags 属性为 Intent.FLAG_ACTIVITY_CLEAR_TOP
 
@@ -113,13 +132,13 @@ Intent.FLAG_ACTIVITY_NEW_TASK：singleInstance
 ~~~java
 Intent intent = new Intent();
 Intent intent = new Intent();
-intent.setComponent(new ComponentName("com.thundersoft.testnotification", "com.thundersoft.testnotification.activity.SecondActivity"));
+intent.setComponent(new ComponentName("com.hcs.testnotification", "com.hcs.testnotification.activity.SecondActivity"));
 
 // 等价于
 Intent intent = new Intent(getApplicationContext(), SecondActivity.class);
 ~~~
 
-*note:* 包名指的是组件所在的包名，而不是类所在的包名，包名是 `com.thundersoft.testnotification`，而不是 `com.thundersoft.testnotification.activity`
+*note:* 包名指的是组件所在的包名，而不是类所在的包名，包名是 `com.hcs.testnotification`，而不是 `com.hcs.testnotification.activity`
 
 类名需要包含类的详细路径，也就是`包名+类名`
 
