@@ -105,7 +105,7 @@ Git是分布式版本控制系统，没有中央服务器，每个人的电脑�
 
 ~~~she
 git config --global user.name "haospring"
-git config --global user.eamil "haospring123@gmail.com"
+git config --global user.email "haospring123@gmail.com"
 ~~~
 
 只需要做一次这个设置，如果你传递了--global 选项，因为Git将总是会使用该信息来处理你在系统中所做的一切操作。如果你希望在一个特定的项目中使用不同的名称或e-mail地址，你可以在该项目中运行该命令而不要--global选项。总之--global为全局配置，不加为某个项目的特定配置。
@@ -159,7 +159,7 @@ ssh-keygen -t rsa
 
 查看当前git版本 git --version
 
-windows更新 git git update-git-for-windows
+windows更新 git update-git-for-windows
 
 ## 3. Git基本理论
 
@@ -253,6 +253,11 @@ git add <filename>
 # 提交到本地仓库
 git commit -m "message"
 # 将本地dev分支推送到远程仓库的dev分支
+# 1.查看远程仓库地址，例：origin、base
+git remote
+# 2.查看远程分支
+git branch -r
+# 3.push到远程地址的远程分支
 git push origin dev
 ~~~
 
@@ -351,6 +356,8 @@ git config --global core.quotepath false
 
 可以通过 `git commit -a` 跳过使用暂存区，Git会自动把所有已经跟踪过的文件暂存起来一并提交，从而跳过 `git add <filename>` 步骤
 
+使用 `git commit --amend` 追加到上一笔提交，不会产生新的 commit log 记录
+
 #### 5.1.4 git rm
 
 要从 Git 中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。
@@ -376,6 +383,62 @@ git rm --cached test.txt
 `git rm test.txt`
 
 `git add test2.txt`
+
+#### 5.1.6 git remote
+
+1. 查看远程地址
+
+~~~shell
+git remote
+git remote -v
+~~~
+
+ ![image-20221126185533298](./Git.assets/image-20221126185533298.png)
+
+2. 查看远程仓库详细信息
+
+~~~shell
+git remote show origin
+~~~
+
+ ![image-20221126185626292](./Git.assets/image-20221126185626292.png)
+
+3. 添加远程版本库，将本地与远程仓库关联，需要远程仓库存在
+
+~~~shell
+# git remote add [shortname] [url]，shortname为远程地址别名
+git remote add origin git@github.com:haospring/Test.git
+~~~
+
+ ![image-20221126190732075](./Git.assets/image-20221126190732075.png)
+
+4. 首次关联远程仓库
+
+~~~shell
+git push -u origin master
+~~~
+
+ ![image-20221126190841288](./Git.assets/image-20221126190841288.png)
+
+5. 取消与远程库的关联
+
+~~~shell
+git remote rm origin
+~~~
+
+ ![image-20221126191221938](./Git.assets/image-20221126191221938.png)
+
+[https://www.runoob.com/git/git-remote.html](https://www.runoob.com/git/git-remote.html)
+
+#### 5.1.7 git rebase
+
+将多比提交合并为一笔
+
+~~~shell
+git rebase -i HEAD~3
+~~~
+
+[https://docs.github.com/cn/get-started/using-git/about-git-rebase](https://docs.github.com/cn/get-started/using-git/about-git-rebase)
 
 ### 5.2 忽略文件
 
@@ -538,7 +601,7 @@ git log --author=ha
 
 ### 6.2 撤销修改
 
-有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 --amend 选 项的提交命令来重新提交：
+有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 --amend 选项的提交命令来重新提交：
 
 ~~~shell
 git commit --amend
@@ -548,6 +611,8 @@ git commit --amend
 
 ~~~shell
 git restore <file>
+# 旧版本git
+git checkout <file>
 ~~~
 
 修改只是添加到了暂存区，还没有提交，撤销修改，重新放回工作区
@@ -592,7 +657,8 @@ ssh -T git@github.com
 1. 将本地仓库与新建的远程仓库关联
 
 ~~~shell
-git remote add origin git@github.com:haospring/LearnGit
+# git remote add [远程地址别名（origin、base）] [url]
+git remote add origin git@github.com:haospring/LearnGit.git
 ~~~
 
 2. 查看本地仓库的远程仓库信息
@@ -625,8 +691,8 @@ git push -u origin main
 ~~~shell
 git checkout -b dev || git switch -c dev
 # -b表示创建并切换，相当于以下两条语句的合并
-# git branch dev
-# git checkout dev || git swtich dev
+# git branch dev，创建分支
+# git checkout dev || git swtich dev 切换分支
 
 # 创建与远程分支相同的分支
 git switch -c dev origin/dev
@@ -649,7 +715,22 @@ git branch -a
 git push origin <branch>
 ~~~
 
-4. 切换分支
+4. 创建远程分支
+
+~~~shell
+# 1.创建并切换到本地分支
+git branch -b dev
+# 2.指定本地其他分支合并到当前分支
+git merge master
+# 3.查看远程分支地址
+git remote
+# 4.将当前分支推送到远程，自动创建远程分支，远程分支名任意
+git push base dev:dev
+~~~
+
+ ![image-20221126193236603](./Git.assets/image-20221126193236603.png)
+
+5. 切换分支
 
 ~~~shell
 git checkout dev
@@ -665,17 +746,28 @@ git merge dev
 6. 建立本地分支和远程分支的关联
 
 ~~~shell
+# 老版本git
 git branch --set-upstream branch-name origin/branch-name
+# 新版本git
+git branch --track base/dev
 ~~~
+
+ ![image-20221126193628063](./Git.assets/image-20221126193628063.png)
 
 7. 删除分支
 
 ~~~shell
 # 删除本地分支
 git branch -d dev
-# 删除远程分支
+# 删除远程分支，有两种方式，第一种：直接删除远程分支
 git push origin --delete [branch-name]
+# 第二种：推送一个空分支到远程分支
+git push base :dev
 ~~~
+
+ ![image-20221126194442063](./Git.assets/image-20221126194442063.png)
+
+ ![image-20221126194632486](./Git.assets/image-20221126194632486.png)
 
 说明：合并两个分支时可能报错fatal: refusing to merge unrelated histories
 
