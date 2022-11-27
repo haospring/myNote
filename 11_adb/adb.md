@@ -95,7 +95,7 @@
   - 启动 Activity
 
   ~~~shell
-  # adb shell am start 包名/完整 Activity 路径
+  # adb shell am start 包名/完整Activity路径
   adb shell am start -n com.haospring.test_messenger/.activity.MainActivity
   ~~~
 
@@ -153,6 +153,7 @@
   adb uninstall com.thundersoft.myapplication
   # 保留数据卸载
   adb uninstall -k com.thundersoft.myapplication
+  adb shell cmd package uninstall -k com.hcs.testconfigchanges
   ~~~
 
 - 向设备 push 文件
@@ -216,8 +217,22 @@
   ~~~shell
   adb shell dumpsys meminfo
   ~~~
+  
+- 切换黑白模式
 
+  - 切换白天模式
 
+  ~~~shell
+  adb shell cmd uimode night no
+  ~~~
+
+  - 切换黑夜模式
+
+  ~~~shell
+  adb shell cmd uimode night yes
+  ~~~
+
+  
 
 [参考链接：ADB常用命令及其用法大全](https://blog.csdn.net/qq_39969226/article/details/87897863)
 
