@@ -232,7 +232,35 @@
   adb shell cmd uimode night yes
   ~~~
 
-  
+- 获取系统属性
+
+  - 获取全部系统属性值
+
+  ~~~shell
+  adb shell getprop
+  ~~~
+
+  - 获取指定系统属性值
+
+  ~~~shell
+  adb shell getprop | grep "boot.vehicle_version"
+  ~~~
+
+- 切换系统分区
+
+  - 获取当前分区（0或1）
+
+  ~~~shell
+  adb shell bootctl get-current-slot
+  ~~~
+
+  - 切换分区
+
+  ~~~shell
+  adb shell bootctl set-active-boot-slot
+  ~~~
+
+
 
 [参考链接：ADB常用命令及其用法大全](https://blog.csdn.net/qq_39969226/article/details/87897863)
 
