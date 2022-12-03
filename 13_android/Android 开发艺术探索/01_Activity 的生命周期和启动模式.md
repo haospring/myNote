@@ -162,4 +162,3 @@ tasklist | findstr qemu-system-x86_64.exe
 # 杀死进程
 taskkill/PID 13572 /F
 ~~~
-
