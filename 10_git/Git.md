@@ -719,7 +719,7 @@ git push origin <branch>
 
 ~~~shell
 # 1.创建并切换到本地分支
-git branch -b dev
+git checkout -b dev
 # 2.指定本地其他分支合并到当前分支
 git merge master
 # 3.查看远程分支地址
