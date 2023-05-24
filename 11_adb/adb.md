@@ -49,6 +49,12 @@
   adb logcat | grep haospring
   ~~~
 
+  - 清除日志
+
+  ~~~shell
+  adb logcat -c
+  ~~~
+
 - 安装 APK
 
   - 非系统 APP 安装
@@ -75,6 +81,12 @@
   adb install -t xxx.apk
   ~~~
 
+  - 覆盖安装debug版apk
+
+  ~~~shell
+  adb install -r -t -d xxx.apk
+  ~~~
+
 - 查看手机端安装的所有包名
 
   - 查看应用包名
@@ -88,6 +100,12 @@
 
   ~~~shell
   adb shell pm list packages -f
+  ~~~
+
+  - 清除应用缓存
+
+  ~~~shell
+  adb shell pm clear pakcage
   ~~~
 
 - 启动 Activity
@@ -190,6 +208,7 @@
   ~~~shell
   adb shell ps
   adb shell ps | grep com.haospring
+  adb shell ps -A | grep systemui
   ~~~
 
 - adb shell dumpsys 命令使用
@@ -260,29 +279,26 @@
   adb shell bootctl set-active-boot-slot
   ~~~
 
+- 重启adb服务
 
+  - 关闭adb
+
+  ~~~shell
+  adb kill-server
+  ~~~
+
+  - 启动adb
+
+  ~~~shell
+  adb start-server
+  ~~~
+
+- scrcpy投屏
+
+  ~~~shell
+  scrcpy --options
+  scrcpy --display=0
+  ~~~
 
 [参考链接：ADB常用命令及其用法大全](https://blog.csdn.net/qq_39969226/article/details/87897863)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
