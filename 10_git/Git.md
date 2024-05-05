@@ -244,6 +244,24 @@ git clone git@github.com:haospring/myNote.git
 git clone git@github.com:haospring/myNote.git myNote2
 ~~~
 
+### 4.3 本地仓库关联远程仓库
+
+~~~shell
+# 前提条件：github上创建一个仓库
+# 1.初始化本地仓库
+git init
+# 2.修改本地仓库分支名与远程仓库分支名一致
+git branch -m oldname newname
+# 3.关联远程仓库
+git remote add origin git@github.com:haospring/StudyCpp.git
+# 4.更新分支代码
+git pull origin main
+# 5.提交代码
+git add .
+git commit -m "xxx"
+git push -u orgin main
+~~~
+
 ## 5. Git文件操作
 
 ### 5.1 文件的四种状态
