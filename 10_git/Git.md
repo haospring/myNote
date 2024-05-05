@@ -133,11 +133,27 @@ git config --global http.https://github.com.proxy socks5://127.0.0.1:7890
 git config --global --unset http.https://github.com.proxy
 ~~~
 
-
-
  ![image-20221116210830509](./Git.assets/image-20221116210830509.png)
 
 [参考链接](https://gist.github.com/laispace/666dd7b27e9116faece6)
+
+**ssh无法连接github**
+
+~~~shell
+# 1.首次需要修改known_hosts，输入yes即可
+ssh -T -p 443 git@ssh.github.com
+
+# 2.在.ssh/config文件中添加下面内容，若文件不存在，可创建一个
+Host github.com
+    Hostname ssh.github.com
+    Port 443
+    User git
+    
+# 3.判断是否成功连接
+ssh -T git@github.com
+~~~
+
+[ssh无法连接github解决方案](https://docs.github.com/en/authentication/troubleshooting-ssh/using-ssh-over-the-https-port)
 
 ### 2.6 配置编辑器
 
