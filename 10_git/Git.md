@@ -453,6 +453,19 @@ git rebase -i HEAD~3
 
 [https://docs.github.com/cn/get-started/using-git/about-git-rebase](https://docs.github.com/cn/get-started/using-git/about-git-rebase)
 
+#### 5.1.8 git branch -m
+
+分支重命名
+
+~~~shell
+# 重命名当前分支 e.g.将当前分支重命名为main
+git branch -m main
+# 重命名指定分支
+git branch -m oldname newname
+# 强制重命名，若存在与新命名分支相同的分支，则删除原分支，重新创建分支
+git branch -M oldname newname
+~~~
+
 ### 5.2 忽略文件
 
 有些时候我们不想把某些文件纳入版本控制中，比如数据库文件，临时文件，设计文件等
